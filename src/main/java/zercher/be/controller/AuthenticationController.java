@@ -1,5 +1,6 @@
 package zercher.be.controller;
 
+import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.user.UserSignInDTO;
 import zercher.be.dto.user.UserSignUpDTO;
 import zercher.be.service.authentication.AuthenticationService;
@@ -10,10 +11,8 @@ import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -32,9 +31,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> createUser(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
+    public ResponseEntity<Void> createUser(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
         authenticationService.signUp(userSignUpDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
+    }
+
+    @PostMapping("/confirmEmail/{token}")
+    public ResponseEntity<Void> confirmEmail(@PathVariable UUID token) {
+        authenticationService.confirmEmail(token);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

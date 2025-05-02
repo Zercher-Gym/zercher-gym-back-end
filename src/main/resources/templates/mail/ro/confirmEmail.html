@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Activați contul</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 24px;
+            color: #fff;
+            background: #007bff;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Bună <span th:text="${username}"/>!</h2>
+    <p>Mulțumim pentru înregistrare! Te rugăm să îți activezi contul apăsând pe butonul de mai jos:</p>
+    <p>
+        <a th:href="${confirmationUrl}" class="button">Activează contul</a>
+    </p>
+    <p>Dacă nu ai creat acest cont, te rugăm să ignori acest email.</p>
+    <p>Toate cele bune,</p>
+    <p>Echipa Zercher Gym</p>
+</div>
+</body>
+</html>

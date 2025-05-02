@@ -21,10 +21,10 @@ public class TokenUtilities {
     @Value("${spring.application.name}")
     private String applicationName;
 
-    @Value("${com.zercher.be.tokenSecret}")
+    @Value("${com.zercher.be.token.secret}")
     private String tokenSecret;
 
-    @Value("${com.zercher.be.tokenExpirationMs}")
+    @Value("${com.zercher.be.token.expirationTimeMs}")
     private Long tokenExpirationMs;
 
     public String generateToken(UserDetails userDetails) {
@@ -50,11 +50,6 @@ public class TokenUtilities {
             return decodedToken.getSubject();
         }
         return null;
-    }
-
-    public boolean isTokenValid(String authToken) {
-        var token = decodeToken(authToken);
-        return (token != null);
     }
 
     private Algorithm getAlgorithm() {

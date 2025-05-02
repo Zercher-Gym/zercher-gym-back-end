@@ -1,5 +1,6 @@
 package zercher.be.exception.authentication;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,10 +9,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class AuthenticationExceptionHandler {
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleUserAuthenticationException(AuthenticationException ignoredException) {
+        log.error("User authentication failed!");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("userAuthenticationFailed");
     }
 
@@ -23,5 +26,10 @@ public class AuthenticationExceptionHandler {
     @ExceptionHandler({BadCredentialsException.class})
     public ResponseEntity<String> handleInvalidCredentialsException(BadCredentialsException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("invalidCredentials");
+    }
+
+    @ExceptionHandler({ExpiredVerificationTokenException.class})
+    public ResponseEntity<String> handleExpiredVerificationTokenException(ExpiredVerificationTokenException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("expiredVerificationToken");
     }
 }

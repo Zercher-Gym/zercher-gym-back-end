@@ -8,7 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "Zercher Gym", version = "0.0.1")
+        info = @Info(
+                title = "Zercher Gym",
+                description = "Zercher Gym back-end",
+                version = "0.0.1"
+        )
 )
 @SecurityScheme(
         name = "Authentication",

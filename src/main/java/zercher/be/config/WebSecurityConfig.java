@@ -1,7 +1,7 @@
 package zercher.be.config;
 
-import lombok.AllArgsConstructor;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,9 +19,12 @@ import zercher.be.security.token.AuthenticationTokenFilter;
 import java.util.List;
 
 @Configuration
-@AllArgsConstructor
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
+    @Value("${com.zercher.fe.url}")
+    private String frontEndUrl;
+
     private final AuthenticationProvider authenticationProvider;
     private final AuthenticationTokenFilter authenticationTokenFilter;
 
@@ -45,7 +48,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:9000"));
+        configuration.setAllowedOrigins(List.of(frontEndUrl));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
 
