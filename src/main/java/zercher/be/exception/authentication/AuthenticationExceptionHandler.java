@@ -6,30 +6,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import zercher.be.response.BaseResponse;
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class AuthenticationExceptionHandler {
     @ExceptionHandler({AuthenticationException.class})
-    public ResponseEntity<String> handleUserAuthenticationException(AuthenticationException ignoredException) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleUserAuthenticationException(AuthenticationException ignoredException) {
         log.error("User authentication failed!");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("userAuthenticationFailed");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>("userAuthenticationFailed"));
     }
 
     @ExceptionHandler({DisabledException.class})
-    public ResponseEntity<String> handleUserNotEnabledException(DisabledException ignoredException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("userNotEnabled");
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleUserNotEnabledException(DisabledException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>("userNotEnabled"));
     }
 
     @ExceptionHandler({BadCredentialsException.class})
-    public ResponseEntity<String> handleInvalidCredentialsException(BadCredentialsException ignoredException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("invalidCredentials");
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleInvalidCredentialsException(BadCredentialsException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>("invalidCredentials"));
     }
 
     @ExceptionHandler({ExpiredVerificationTokenException.class})
-    public ResponseEntity<String> handleExpiredVerificationTokenException(ExpiredVerificationTokenException ignoredException) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("expiredVerificationToken");
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleExpiredVerificationTokenException(ExpiredVerificationTokenException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>("expiredVerificationToken"));
     }
 }

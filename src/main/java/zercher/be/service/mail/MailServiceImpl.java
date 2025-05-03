@@ -44,7 +44,10 @@ public class MailServiceImpl implements MailService {
             helper.setText(htmlContent, true);
 
             mailSender.send(mimeMessage);
+
+            log.info("Successfully sent email template {} to {}", templatePath, to);
         } catch (MessagingException exception) {
+            log.error("Could not send email!", exception);
             throw new RuntimeException(exception);
         }
     }

@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ import zercher.be.model.VerificationToken;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
 import zercher.be.repository.VerificationTokenRepository;
-import zercher.be.security.Authority;
+import zercher.be.security.Role;
 import zercher.be.security.token.TokenUtilities;
 import zercher.be.service.mail.MailService;
 
@@ -60,9 +59,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        var userDetails = (UserDetails) authentication.getPrincipal();
+        var user = (User) authentication.getPrincipal();
 
-        return tokenUtilities.generateToken(userDetails);
+        return tokenUtilities.generateToken(user);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new ResourceExistsException("userWithEmailExists");
         }
 
-        var role = roleRepository.findByName(Authority.USER.getName())
+        var role = roleRepository.findByName(Role.USER.getName())
                 .orElseThrow(() -> new ResourceNotFoundException("roleNotFound"));
 
         var user = User.builder()
@@ -88,6 +87,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
 
         userRepository.save(user);
+
+        log.info("Created new user {}!", user.getUsername());
 
         if (verifyEmail) {
             var tokenExpiration = new Date(new Date().getTime() + verificationTokenExpirationTimeMs);
@@ -115,8 +116,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = verificationToken.getUser();
         user.setEnabled(true);
         userRepository.save(user);
+        log.info("Enabled user {}!", user.getUsername());
 
         var tokens = verificationTokenRepository.getByUser(user);
         verificationTokenRepository.deleteAll(tokens);
+        log.info("Cleaned up verification tokens for user {}!", user.getUsername());
     }
 }

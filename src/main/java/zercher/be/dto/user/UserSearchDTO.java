@@ -1,7 +1,6 @@
 package zercher.be.dto.user;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +12,10 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSignInDTO implements Serializable {
-    @NotBlank
-    @Size(max = 40)
+public class UserSearchDTO implements Serializable {
+    @NotNull
     private String username;
 
-    @NotBlank
-    @Size(max = 40)
-    private String password;
+    @NotNull
+    private Integer limit;
 }
