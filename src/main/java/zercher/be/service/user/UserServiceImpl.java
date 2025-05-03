@@ -3,18 +3,22 @@ package zercher.be.service.user;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import zercher.be.dto.user.UserViewDTO;
+import zercher.be.dto.user.*;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.UserMapper;
 import zercher.be.model.User;
+import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
-import zercher.be.security.token.TokenUtilities;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,45 +27,42 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
-    private final TokenUtilities tokenUtilities;
+    private final RoleRepository roleRepository;
 
     @Override
-    public UserViewDTO getView(String token) {
-        var user = getUserFromToken(token);
+    public UserViewDTO getView() {
+        var user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userMapper.userToUserViewDTO(user);
     }
 
     @Override
     public UserViewDTO getView(UUID id) {
-        var user = getUserFromID(id);
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
         return userMapper.userToUserViewDTO(user);
     }
 
     @Override
-    public Page<UserViewDTO> getViewList(Pageable pageable) {
-        return userRepository.findAll(pageable).map(userMapper::userToUserViewDTO);
+    public Page<UserViewAdminDTO> getViewListAdmin(Pageable pageable) {
+        var entities = userRepository.findAll(pageable);
+        return entities.map(userMapper::userToUserAdminViewDTO);
     }
 
     @Override
-    public void deleteUser(String token) {
-        var user = getUserFromToken(token);
-        userRepository.delete(user);
+    public List<UserListViewDTO> getSearchList(UserSearchDTO searchDTO) {
+        var entities = userRepository.getUsersByUsernameContainingIgnoreCase(searchDTO.getUsername(), Limit.of(searchDTO.getLimit()));
+        return entities.stream().map(userMapper::userToUserListViewDTO).collect(Collectors.toList());
     }
 
     @Override
-    public void deleteUser(UUID id) {
-        var user = getUserFromID(id);
-        userRepository.delete(user);
-    }
+    public void updateUserAdmin(UUID id, UserUpdateAdminDTO updateDTO) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
 
-    private User getUserFromToken(String token) throws ResourceNotFoundException {
-        var username = tokenUtilities.getUsernameFromToken(token);
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User with username not found."));
-    }
+        userMapper.updateUserFromAdminDTO(updateDTO, user);
+        var newRoles = roleRepository.findAllByNameIn(updateDTO.getRoles());
+        user.setRoles(newRoles);
 
-    private User getUserFromID(UUID id) throws ResourceNotFoundException {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User with ID not found."));
+        userRepository.save(user);
     }
 }

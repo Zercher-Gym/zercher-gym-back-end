@@ -3,18 +3,19 @@ package zercher.be.service.user;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import zercher.be.dto.user.UserViewDTO;
+import zercher.be.dto.user.*;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-    UserViewDTO getView(String token);
+    UserViewDTO getView();
 
     UserViewDTO getView(UUID id);
 
-    Page<UserViewDTO> getViewList(Pageable pageable);
+    Page<UserViewAdminDTO> getViewListAdmin(Pageable pageable);
 
-    void deleteUser(String token);
+    List<UserListViewDTO> getSearchList(UserSearchDTO searchDTO);
 
-    void deleteUser(UUID id);
+    void updateUserAdmin(UUID id, UserUpdateAdminDTO updateDTO);
 }

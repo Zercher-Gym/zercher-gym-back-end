@@ -14,7 +14,15 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSignUpDTO extends UserBaseDTO implements Serializable {
+public class UserSignUpDTO implements Serializable {
+    @NotBlank
+    @Size(max = 40)
+    private String username;
+
+    @NotBlank
+    @Size(max = 40)
+    private String password;
+
     @NotBlank
     @Email
     @Size(max = 255)

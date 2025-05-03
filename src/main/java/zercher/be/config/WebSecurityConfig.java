@@ -25,6 +25,9 @@ public class WebSecurityConfig {
     @Value("${com.zercher.fe.url}")
     private String frontEndUrl;
 
+    @Value("${com.zercher.mobile.url}")
+    private String mobileUrl;
+
     private final AuthenticationProvider authenticationProvider;
     private final AuthenticationTokenFilter authenticationTokenFilter;
 
@@ -48,7 +51,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of(frontEndUrl));
+        configuration.setAllowedOrigins(List.of(mobileUrl, frontEndUrl));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
 

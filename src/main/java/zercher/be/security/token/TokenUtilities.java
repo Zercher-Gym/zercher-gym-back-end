@@ -36,6 +36,7 @@ public class TokenUtilities {
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(issuedDate)
                 .withExpiresAt(expirationDate)
+                .withIssuer(applicationName)
                 .sign(algorithm);
     }
 
