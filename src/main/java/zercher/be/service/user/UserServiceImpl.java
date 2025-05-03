@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import zercher.be.mapper.UserMapper;
 import zercher.be.model.User;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
+import zercher.be.repository.VerificationTokenRepository;
+import zercher.be.specification.UserSpecifications;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final RoleRepository roleRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public UserViewDTO getView() {
@@ -43,8 +47,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserViewAdminDTO> getViewListAdmin(Pageable pageable) {
-        var entities = userRepository.findAll(pageable);
+    public Page<UserViewAdminDTO> getSearchPageAdmin(Pageable pageable, UserSearchAdminDTO searchDTO) {
+        Specification<User> specification = Specification.where(null);
+
+        if (searchDTO.getUsername() != null && !searchDTO.getUsername().isEmpty()) {
+            specification = specification.and(UserSpecifications.usernameContains(searchDTO.getUsername()));
+        }
+        if (searchDTO.getEmail() != null && !searchDTO.getEmail().isEmpty()) {
+            specification = specification.and(UserSpecifications.emailContains(searchDTO.getEmail()));
+        }
+        if (searchDTO.getId() != null) {
+            specification = specification.and(UserSpecifications.idEquals(searchDTO.getId()));
+        }
+        if (searchDTO.getEnabled() != null) {
+            specification = specification.and(UserSpecifications.enabledEquals(searchDTO.getEnabled()));
+        }
+        if (searchDTO.getLocked() != null) {
+            specification = specification.and(UserSpecifications.lockedEquals(searchDTO.getLocked()));
+        }
+
+        var entities = userRepository.findAll(specification, pageable);
         return entities.map(userMapper::userToUserAdminViewDTO);
     }
 
@@ -64,5 +86,20 @@ public class UserServiceImpl implements UserService {
         user.setRoles(newRoles);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUser() {
+        var user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        verificationTokenRepository.deleteAllByUser(user);
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void deleteUser(UUID id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
+        verificationTokenRepository.deleteAllByUser(user);
+        userRepository.delete(user);
     }
 }

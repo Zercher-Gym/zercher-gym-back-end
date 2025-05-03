@@ -116,12 +116,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var user = verificationToken.getUser();
         user.setEnabled(true);
         userRepository.save(user);
-
         log.info("Enabled user {}!", user.getUsername());
 
         var tokens = verificationTokenRepository.getByUser(user);
         verificationTokenRepository.deleteAll(tokens);
-
         log.info("Cleaned up verification tokens for user {}!", user.getUsername());
     }
 }

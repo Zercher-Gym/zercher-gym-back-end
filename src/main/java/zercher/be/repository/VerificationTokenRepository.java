@@ -10,4 +10,6 @@ import java.util.UUID;
 
 public interface VerificationTokenRepository extends JpaRepository<VerificationToken, UUID> {
     List<VerificationToken> getByUser(User user);
+
+    void deleteAllByUser(User user);
 }

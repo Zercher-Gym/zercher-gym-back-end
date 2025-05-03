@@ -32,8 +32,8 @@ public class UserController {
     @Tag(name = "Admin")
     @GetMapping("/admin/search")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<PageResponse<UserViewAdminDTO>> searchAdmin(@ParameterObject Pageable pageable, @Valid UserSearchAdminDTO searchAdminDTO) {
-        var page = userService.getViewListAdmin(pageable);
+    public ResponseEntity<PageResponse<UserViewAdminDTO>> searchAdmin(@ParameterObject Pageable pageable, @Valid UserSearchAdminDTO searchDTO) {
+        var page = userService.getSearchPageAdmin(pageable, searchDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new PageResponse<>(page));
     }
 
@@ -56,9 +56,24 @@ public class UserController {
     }
 
     @Tag(name = "Admin")
-    @PatchMapping("/admin/update/{id}")
+    @PatchMapping("/admin/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> updateUserAdmin(@PathVariable UUID id, @Valid @RequestBody UserUpdateAdminDTO updateDTO) {
         userService.updateUserAdmin(id, updateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
+    }
+
+    @DeleteMapping("/profile")
+    public ResponseEntity<BaseResponse<Void>> deleteProfile() {
+        userService.deleteUser();
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
+    }
+
+    @Tag(name = "Admin")
+    @DeleteMapping("/admin/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<BaseResponse<Void>> deleteUser(@PathVariable UUID id) {
+        userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 }

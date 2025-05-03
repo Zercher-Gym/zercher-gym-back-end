@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -28,6 +27,4 @@ public class UserSearchAdminDTO implements Serializable {
     private Boolean enabled;
 
     private Boolean locked;
-
-    private Set<String> roles;
 }

@@ -13,9 +13,13 @@ public interface UserService {
 
     UserViewDTO getView(UUID id);
 
-    Page<UserViewAdminDTO> getViewListAdmin(Pageable pageable);
+    Page<UserViewAdminDTO> getSearchPageAdmin(Pageable pageable, UserSearchAdminDTO searchDTO);
 
     List<UserListViewDTO> getSearchList(UserSearchDTO searchDTO);
 
     void updateUserAdmin(UUID id, UserUpdateAdminDTO updateDTO);
+
+    void deleteUser();
+
+    void deleteUser(UUID id);
 }
