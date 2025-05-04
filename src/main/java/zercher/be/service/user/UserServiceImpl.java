@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import zercher.be.dto.user.*;
+import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.UserMapper;
 import zercher.be.model.User;
@@ -35,7 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserViewDTO getView() {
-        var user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
         return userMapper.userToUserViewDTO(user);
     }
 
@@ -89,8 +93,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(UserUpdateDTO updateDTO) {
+        var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
+
+        if (!updateDTO.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(updateDTO.getEmail())) {
+                throw new ResourceExistsException("userWithEmailExists");
+            }
+        }
+
+        if (!updateDTO.getUsername().equals(user.getUsername())) {
+            if (userRepository.existsByUsername(updateDTO.getUsername())) {
+                throw new ResourceExistsException("userWithUsernameExists");
+            }
+        }
+
+        userMapper.updateUserFromDTO(updateDTO, user);
+        userRepository.save(user);
+    }
+
+    @Override
     public void deleteUser() {
-        var user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
         verificationTokenRepository.deleteAllByUser(user);
         userRepository.delete(user);
     }

@@ -49,6 +49,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(userView));
     }
 
+    @PutMapping("/profile")
+    public ResponseEntity<BaseResponse<Void>> updateProfile(@Valid @RequestBody UserUpdateDTO updateDTO) {
+        userService.updateUser(updateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
+    }
+
     @GetMapping("/profile/{id}")
     public ResponseEntity<BaseResponse<UserViewDTO>> getProfile(@PathVariable UUID id) {
         var userView = userService.getView(id);
@@ -56,7 +62,7 @@ public class UserController {
     }
 
     @Tag(name = "Admin")
-    @PatchMapping("/admin/{id}")
+    @PutMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> updateUserAdmin(@PathVariable UUID id, @Valid @RequestBody UserUpdateAdminDTO updateDTO) {
         userService.updateUserAdmin(id, updateDTO);

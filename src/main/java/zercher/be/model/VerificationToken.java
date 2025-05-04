@@ -26,4 +26,8 @@ public class VerificationToken {
 
     @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
+
+    @Column(name = "type", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private VerificationTokenType type;
 }

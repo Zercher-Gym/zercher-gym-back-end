@@ -6,4 +6,6 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
     <include file="/ddl/1746006402152-add-user-and-role.xml" relativeToChangelogFile="true"/>
     <include file="/ddl/1746177928224-add-verification-token.xml" relativeToChangelogFile="true"/>
+    <include file="/ddl/1746299049743-add-user-locked-property.xml" relativeToChangelogFile="true"/>
+    <include file="/ddl/1746299334505-add-verification-token-type.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
