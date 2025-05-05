@@ -46,7 +46,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("confirmEmail/send")
-    public ResponseEntity<BaseResponse<Void>> confirmEmail(@Valid @RequestBody UserEmailDTO userEmailDTO) {
+    public ResponseEntity<BaseResponse<Void>> confirmEmailSend(@Valid @RequestBody UserEmailDTO userEmailDTO) {
         authenticationService.sendConfirmEmail(userEmailDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
@@ -58,7 +58,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/resetPassword/send")
-    public ResponseEntity<BaseResponse<Void>> resetPassword(@Valid @RequestBody UserEmailDTO emailDTO) {
+    public ResponseEntity<BaseResponse<Void>> resetPasswordSend(@Valid @RequestBody UserEmailDTO emailDTO) {
         authenticationService.sendResetPassword(emailDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }

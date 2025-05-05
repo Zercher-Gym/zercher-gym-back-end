@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<BaseResponse<UserViewDTO>> getProfile() {
+    public ResponseEntity<BaseResponse<UserViewDTO>> getProfileCurrent() {
         var userView = userService.getView();
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(userView));
     }
@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @DeleteMapping("/profile")
-    public ResponseEntity<BaseResponse<Void>> deleteProfile() {
+    public ResponseEntity<BaseResponse<Void>> deleteProfileCurrent() {
         userService.deleteUser();
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
@@ -78,7 +78,7 @@ public class UserController {
     @Tag(name = "Admin")
     @DeleteMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<BaseResponse<Void>> deleteUser(@PathVariable UUID id) {
+    public ResponseEntity<BaseResponse<Void>> deleteProfile(@PathVariable UUID id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
