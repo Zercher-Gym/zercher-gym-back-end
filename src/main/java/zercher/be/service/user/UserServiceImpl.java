@@ -30,10 +30,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-    private final UserMapper userMapper;
     private final RoleRepository roleRepository;
     private final VerificationTokenRepository verificationTokenRepository;
+
+    private final UserMapper userMapper;
 
     @Override
     public UserViewDTO getView() {
