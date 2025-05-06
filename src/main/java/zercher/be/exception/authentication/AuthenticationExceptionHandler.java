@@ -42,4 +42,11 @@ public class AuthenticationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new BaseResponse<>("expiredVerificationToken"));
     }
+
+    @ExceptionHandler({InvalidTokenTypeException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleExpiredVerificationTokenException(InvalidTokenTypeException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>("invalidVerificationTokenType"));
+    }
 }

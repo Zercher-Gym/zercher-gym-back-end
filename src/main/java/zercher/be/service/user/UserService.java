@@ -19,6 +19,8 @@ public interface UserService {
 
     void updateUserAdmin(UUID id, UserUpdateAdminDTO updateDTO);
 
+    void updateUser(UserUpdateDTO updateDTO);
+
     void deleteUser();
 
     void deleteUser(UUID id);

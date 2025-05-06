@@ -4,10 +4,7 @@ import org.mapstruct.Mapper;
 
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import zercher.be.dto.user.UserListViewDTO;
-import zercher.be.dto.user.UserUpdateAdminDTO;
-import zercher.be.dto.user.UserViewAdminDTO;
-import zercher.be.dto.user.UserViewDTO;
+import zercher.be.dto.user.*;
 import zercher.be.model.User;
 
 
@@ -21,4 +18,6 @@ public interface UserMapper {
 
     @Mapping(target = "roles", ignore = true)
     void updateUserFromAdminDTO(UserUpdateAdminDTO updateDTO, @MappingTarget User user);
+
+    void updateUserFromDTO(UserUpdateDTO updateDTO, @MappingTarget User user);
 }
