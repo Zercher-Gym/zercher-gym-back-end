@@ -1,6 +1,5 @@
 package zercher.be.dto.user;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +17,6 @@ public class UserSearchAdminDTO implements Serializable {
     @Size(max = 40)
     private String username;
 
-    @Email
     @Size(max = 255)
     private String email;
 
