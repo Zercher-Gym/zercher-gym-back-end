@@ -1,4 +1,4 @@
-package zercher.be.model;
+package zercher.be.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

@@ -1,4 +1,4 @@
-package zercher.be.model;
+package zercher.be.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

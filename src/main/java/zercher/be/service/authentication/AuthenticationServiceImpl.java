@@ -19,13 +19,13 @@ import zercher.be.exception.authentication.ExpiredVerificationTokenException;
 import zercher.be.exception.authentication.InvalidTokenTypeException;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
-import zercher.be.model.User;
-import zercher.be.model.VerificationToken;
-import zercher.be.model.VerificationTokenType;
+import zercher.be.model.entity.User;
+import zercher.be.model.entity.VerificationToken;
+import zercher.be.model.enums.VerificationTokenType;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
 import zercher.be.repository.VerificationTokenRepository;
-import zercher.be.security.Role;
+import zercher.be.model.enums.Role;
 import zercher.be.security.token.TokenUtilities;
 import zercher.be.service.mail.MailService;
 

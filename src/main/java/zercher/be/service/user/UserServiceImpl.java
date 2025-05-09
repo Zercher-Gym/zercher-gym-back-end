@@ -15,7 +15,7 @@ import zercher.be.dto.user.*;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.UserMapper;
-import zercher.be.model.User;
+import zercher.be.model.entity.User;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
 import zercher.be.repository.VerificationTokenRepository;

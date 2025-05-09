@@ -4,7 +4,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
-import zercher.be.model.Role;
+import zercher.be.model.entity.Role;
 
 import java.util.Set;
 
