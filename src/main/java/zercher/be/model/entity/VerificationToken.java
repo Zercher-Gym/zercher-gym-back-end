@@ -1,10 +1,11 @@
-package zercher.be.model;
+package zercher.be.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.model.enums.VerificationTokenType;
 
 import java.util.Date;
 import java.util.UUID;

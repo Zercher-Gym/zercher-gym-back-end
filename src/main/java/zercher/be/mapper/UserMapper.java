@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import zercher.be.dto.user.*;
-import zercher.be.model.User;
+import zercher.be.model.entity.User;
 
 
 @Mapper(componentModel = "spring", uses = {RoleMapper.class})

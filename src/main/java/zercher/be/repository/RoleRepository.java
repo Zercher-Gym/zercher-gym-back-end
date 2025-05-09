@@ -2,7 +2,7 @@ package zercher.be.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import zercher.be.model.Role;
+import zercher.be.model.entity.Role;
 
 import java.util.Collection;
 import java.util.Optional;

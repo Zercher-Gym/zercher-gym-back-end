@@ -5,7 +5,7 @@ import org.springframework.data.domain.Limit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-import zercher.be.model.User;
+import zercher.be.model.entity.User;
 
 import java.util.List;
 import java.util.Optional;

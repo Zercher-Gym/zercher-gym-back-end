@@ -25,6 +25,7 @@ as [IntelliJ IDEA Community Version](https://www.jetbrains.com/idea/)
 Currently, Liquibase has been configured and tested to run only with PostgreSQL.
 In the `liquibase.properties` file, alter the `url`, `username` and `password` to match those of the PostgreSQL instance
 you wish to connect to.
+Make sure the same credentials are changed in `application.properties` as well.
 [Here](https://www.baeldung.com/java-jdbc-url-format#jdbc-url-format-for-postgresql) you can find an example of
 connection URL.
 
