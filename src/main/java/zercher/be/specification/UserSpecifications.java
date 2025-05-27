@@ -3,7 +3,7 @@ package zercher.be.specification;
 import org.springframework.data.jpa.domain.Specification;
 
 import zercher.be.model.entity.User;
-import zercher.be.model.User_;
+import zercher.be.model.entity.User_;
 
 import java.util.UUID;
 

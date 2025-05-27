@@ -9,8 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import zercher.be.model.entity.User;
-import zercher.be.model.enums.ActivityType;
-import zercher.be.repository.ActivityTypeRepository;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
 import zercher.be.model.enums.Role;
@@ -32,7 +30,6 @@ public class DataConfig implements ApplicationRunner {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final ActivityTypeRepository activityTypeRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -41,7 +38,13 @@ public class DataConfig implements ApplicationRunner {
         Set<zercher.be.model.entity.Role> unsavedRoles = new HashSet<>();
         for (var authority : Role.values()) {
             if (!roleRepository.existsByName(authority.getName())) {
-                unsavedRoles.add(new zercher.be.model.entity.Role(null, authority.getName()));
+                unsavedRoles.add(
+                        new zercher.be.model.entity.Role(
+                                null,
+                                authority.getName(),
+                                null
+                        )
+                );
             }
         }
         roleRepository.saveAll(unsavedRoles);
@@ -59,13 +62,5 @@ public class DataConfig implements ApplicationRunner {
 
             userRepository.save(user);
         }
-
-        Set<zercher.be.model.entity.ActivityType> unsavedActivityTypes = new HashSet<>();
-        for (var activityType : ActivityType.values()) {
-            if (!activityTypeRepository.existsByName(activityType.getName())) {
-                unsavedActivityTypes.add(new zercher.be.model.entity.ActivityType(null, activityType.getName()));
-            }
-        }
-        activityTypeRepository.saveAll(unsavedActivityTypes);
     }
 }

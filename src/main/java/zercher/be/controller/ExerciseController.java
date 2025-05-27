@@ -56,18 +56,18 @@ public class ExerciseController {
     }
 
     @Tag(name = "Admin")
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<BaseResponse<Void>> deleteExercise(@PathVariable UUID id) {
-        exerciseService.deleteExercise(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
-    }
-
-    @Tag(name = "Admin")
     @PutMapping("/label/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> updateLabel(@PathVariable Long id, @Valid @RequestBody ExerciseLabelUpdateDTO updateDTO) {
         exerciseService.updateExerciseLabel(id, updateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
+    }
+
+    @Tag(name = "Admin")
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public ResponseEntity<BaseResponse<Void>> deleteExercise(@PathVariable UUID id) {
+        exerciseService.deleteExercise(id);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 }
