@@ -19,13 +19,8 @@
         </createTable>
     </changeSet>
     <changeSet id="1746177928224-2" author="alex-aelenei">
-        <addUniqueConstraint columnNames="user_id" constraintName="uc_verification_tokens_user"
-                             tableName="verification_tokens"/>
-    </changeSet>
-    <changeSet id="1746177928224-3" author="alex-aelenei">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="verification_tokens"
                                  constraintName="FK_VERIFICATION_TOKENS_ON_USER" referencedColumnNames="id"
                                  referencedTableName="users"/>
     </changeSet>
-
 </databaseChangeLog>

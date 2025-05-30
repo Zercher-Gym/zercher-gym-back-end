@@ -15,10 +15,10 @@ import zercher.be.response.BaseResponse;
 @RestControllerAdvice
 public class AuthenticationExceptionHandler {
     @ExceptionHandler({AuthenticationException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<BaseResponse<Void>> handleUserAuthenticationException(AuthenticationException ignoredException) {
         log.error("User authentication failed!");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new BaseResponse<>("userAuthenticationFailed"));
     }
 
