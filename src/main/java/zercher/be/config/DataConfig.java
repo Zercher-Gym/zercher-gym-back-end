@@ -50,7 +50,7 @@ public class DataConfig implements ApplicationRunner {
         roleRepository.saveAll(unsavedRoles);
 
         var allRoles = new HashSet<>(roleRepository.findAll());
-        if (!userRepository.existsByUsername(adminUsername)) {
+        if (!userRepository.existsByUsername(adminUsername) && !userRepository.existsByEmail(adminEmail)) {
             var user = User.builder()
                     .password(passwordEncoder.encode(adminPassword))
                     .username(adminUsername)
