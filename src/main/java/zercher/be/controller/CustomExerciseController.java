@@ -22,6 +22,8 @@ import java.util.UUID;
 @RequestMapping("/api/exercise/custom")
 @SecurityRequirement(name = "Authentication")
 public class CustomExerciseController {
+    // add units to custom exercises
+
     private final CustomExerciseService customExerciseService;
 
     @PostMapping("/create")
