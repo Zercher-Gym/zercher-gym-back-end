@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,5 +25,5 @@ public class Exercise {
     private String identifier;
 
     @OneToMany(mappedBy = "exercise")
-    private Set<ExerciseLabel> labels = new HashSet<>();
+    private Set<ExerciseLabel> labels;
 }
