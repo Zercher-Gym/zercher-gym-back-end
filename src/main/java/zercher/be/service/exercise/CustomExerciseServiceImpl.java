@@ -9,11 +9,11 @@ import zercher.be.dto.customexercise.CustomExerciseCreateDTO;
 import zercher.be.dto.customexercise.CustomExerciseUpdateDTO;
 import zercher.be.dto.customexercise.CustomExerciseViewDTO;
 import zercher.be.exception.global.ResourceNotFoundException;
-import zercher.be.exception.role.RoleLimitExceeded;
+import zercher.be.exception.global.RoleLimitExceeded;
 import zercher.be.mapper.CustomExerciseMapper;
+import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UserRepository;
-import zercher.be.repository.customexercise.CustomExerciseQueryRepository;
-import zercher.be.repository.customexercise.CustomExerciseRepository;
+import zercher.be.repository.exercise.CustomExerciseRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomExerciseServiceImpl implements CustomExerciseService {
     private final CustomExerciseRepository customExerciseRepository;
-    private final CustomExerciseQueryRepository customExerciseQueryRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     private final CustomExerciseMapper customExerciseMapper;
 
@@ -51,8 +51,8 @@ public class CustomExerciseServiceImpl implements CustomExerciseService {
         var user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
 
-        var userMaxExerciseLimit = customExerciseQueryRepository.getMaxExerciseLimit(user.getId());
-        var userExerciseCount = customExerciseQueryRepository.getCustomExerciseCount(user.getId());
+        var userMaxExerciseLimit = roleRepository.getMaxExerciseLimit(user);
+        var userExerciseCount = customExerciseRepository.countCustomExerciseByUser(user);
 
         if (userExerciseCount + 1 > userMaxExerciseLimit) {
             throw new RoleLimitExceeded("exerciseLimitExceeded");
