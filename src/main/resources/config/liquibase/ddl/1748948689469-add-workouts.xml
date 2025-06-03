@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1748948689469-1" author="alex-aelenei">
+        <createSequence incrementBy="50" sequenceName="workout_exercises_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1748948689469-2" author="alex-aelenei">
+        <createSequence incrementBy="50" sequenceName="workout_labels_seq" startValue="1"/>
+    </changeSet>
+    <changeSet id="1748948689469-3" author="alex-aelenei">
+        <createTable tableName="exercise_units">
+            <column name="exercise_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_units"/>
+            </column>
+            <column name="unit_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_units"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748948689469-4" author="alex-aelenei">
+        <createTable tableName="units">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_units"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748948689469-5" author="alex-aelenei">
+        <createTable tableName="workout_exercises">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout_exercises"/>
+            </column>
+            <column name="workout_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="exercise_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748948689469-6" author="alex-aelenei">
+        <createTable tableName="workout_labels">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout_labels"/>
+            </column>
+            <column name="workout_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748948689469-7" author="alex-aelenei">
+        <createTable tableName="workouts">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workouts"/>
+            </column>
+            <column name="identifier" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748948689469-8" author="alex-aelenei">
+        <addUniqueConstraint columnNames="user_id" constraintName="uc_verification_tokens_user"
+                             tableName="verification_tokens"/>
+    </changeSet>
+    <changeSet id="1748948689469-9" author="alex-aelenei">
+        <addUniqueConstraint columnNames="identifier" constraintName="uc_workouts_identifier" tableName="workouts"/>
+    </changeSet>
+    <changeSet id="1748948689469-10" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="workout_exercises"
+                                 constraintName="FK_WORKOUT_EXERCISES_ON_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="exercises"/>
+    </changeSet>
+    <changeSet id="1748948689469-11" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="workout_exercises"
+                                 constraintName="FK_WORKOUT_EXERCISES_ON_UNIT" referencedColumnNames="id"
+                                 referencedTableName="units"/>
+    </changeSet>
+    <changeSet id="1748948689469-12" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="workout_exercises"
+                                 constraintName="FK_WORKOUT_EXERCISES_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workouts"/>
+    </changeSet>
+    <changeSet id="1748948689469-13" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="workout_labels"
+                                 constraintName="FK_WORKOUT_LABELS_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workouts"/>
+    </changeSet>
+    <changeSet id="1748948689469-14" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="exercise_id" baseTableName="exercise_units"
+                                 constraintName="fk_exeuni_on_exercise" referencedColumnNames="id"
+                                 referencedTableName="exercises"/>
+    </changeSet>
+    <changeSet id="1748948689469-15" author="alex-aelenei">
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="exercise_units"
+                                 constraintName="fk_exeuni_on_unit" referencedColumnNames="id"
+                                 referencedTableName="units"/>
+    </changeSet>
+
+</databaseChangeLog>
