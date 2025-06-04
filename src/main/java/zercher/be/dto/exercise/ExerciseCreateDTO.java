@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import zercher.be.dto.exerciselabel.ExerciseLabelCreateDTO;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -24,5 +25,8 @@ public class ExerciseCreateDTO implements Serializable {
     private String identifier;
 
     @NotNull
-    private Set<ExerciseLabelCreateDTO> labels;
+    private Set<ExerciseLabelCreateDTO> labels = new HashSet<>();
+
+    @NotNull
+    private Set<Long> units = new HashSet<>();
 }

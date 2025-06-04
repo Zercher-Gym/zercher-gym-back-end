@@ -7,12 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
-import zercher.be.dto.unit.UnitViewDTO;
-import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,14 +16,11 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseViewDTO implements Serializable {
+public class ExerciseUpdateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String identifier;
 
     @NotNull
-    private HashMap<Language, ExerciseLabelViewDTO> labels;
-
-    @NotNull
-    private Set<UnitViewDTO> units = new HashSet<>();
+    private Set<Long> units = new HashSet<>();
 }

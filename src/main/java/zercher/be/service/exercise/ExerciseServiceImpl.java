@@ -15,8 +15,10 @@ import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.ExerciseLabelMapper;
 import zercher.be.mapper.ExerciseMapper;
+import zercher.be.mapper.UnitMapper;
 import zercher.be.model.entity.Exercise;
 import zercher.be.model.entity.ExerciseLabel;
+import zercher.be.repository.UnitRepository;
 import zercher.be.repository.exercise.ExerciseLabelRepository;
 import zercher.be.repository.exercise.ExerciseRepository;
 import zercher.be.specification.ExerciseSpecifications;
@@ -29,9 +31,11 @@ import java.util.*;
 public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseLabelRepository exerciseLabelRepository;
+    private final UnitRepository unitRepository;
 
     private final ExerciseMapper exerciseMapper;
     private final ExerciseLabelMapper exerciseLabelMapper;
+    private final UnitMapper unitMapper;
 
     @Override
     public ExerciseViewAdminDTO getExercise(UUID id) {
@@ -47,6 +51,10 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
 
         var exercise = exerciseMapper.createDTOToExercise(createDTO);
+
+        var units = unitRepository.findAllById(createDTO.getUnits());
+        exercise.setUnits(new HashSet<>(units));
+
         exerciseRepository.save(exercise);
 
         var exerciseLabels = new ArrayList<ExerciseLabel>();
@@ -56,6 +64,20 @@ public class ExerciseServiceImpl implements ExerciseService {
             exerciseLabels.add(exerciseLabel);
         }
         exerciseLabelRepository.saveAll(exerciseLabels);
+    }
+
+    @Override
+    public void updateExercise(UUID id, ExerciseUpdateDTO updateDTO) {
+        var exercise = exerciseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("exerciseWithIdNotFound"));
+        if (!exercise.getIdentifier().equals(updateDTO.getIdentifier()) && exerciseRepository.existsByIdentifier(updateDTO.getIdentifier())) {
+            throw new ResourceExistsException("exerciseWithIdentifierExists");
+        }
+
+        exercise.setIdentifier(updateDTO.getIdentifier());
+        var units = unitRepository.findAllById(updateDTO.getUnits());
+        exercise.setUnits(new HashSet<>(units));
+        exerciseRepository.save(exercise);
     }
 
     @Override
@@ -96,7 +118,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     public List<ExerciseViewDTO> searchExercises(ExerciseSearchDTO searchDTO) {
         Specification<Exercise> specification = Specification.where(null);
 
-        if(searchDTO.getContains() != null && !searchDTO.getContains().isEmpty()) {
+        if (searchDTO.getContains() != null && !searchDTO.getContains().isEmpty()) {
             specification = specification.and(ExerciseSpecifications.contains(searchDTO.getContains()));
         }
 
@@ -137,6 +159,11 @@ public class ExerciseServiceImpl implements ExerciseService {
         var exerciseLabels = exerciseLabelRepository.findByExercise(exercise);
         for (var exerciseLabel : exerciseLabels) {
             exerciseResult.getLabels().add(exerciseLabelMapper.entityToViewAdminDTO(exerciseLabel));
+        }
+
+        exerciseResult.setUnits(new HashSet<>());
+        for (var exerciseUnit : exercise.getUnits()) {
+            exerciseResult.getUnits().add(unitMapper.entityToViewDTO(exerciseUnit));
         }
 
         return exerciseResult;

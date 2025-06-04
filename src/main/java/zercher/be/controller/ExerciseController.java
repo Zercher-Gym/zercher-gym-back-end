@@ -66,6 +66,14 @@ public class ExerciseController {
     }
 
     @Tag(name = "Admin")
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public ResponseEntity<BaseResponse<Void>> updateExercise(@PathVariable UUID id, @Valid @RequestBody ExerciseUpdateDTO updateDTO) {
+        exerciseService.updateExercise(id, updateDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
+    }
+
+    @Tag(name = "Admin")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> deleteExercise(@PathVariable UUID id) {
