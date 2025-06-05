@@ -1,6 +1,7 @@
 package zercher.be.dto.customexercise;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,4 +20,7 @@ public class CustomExerciseUpdateDTO {
     @NotBlank
     @Size(max = 255)
     private String description;
+
+    @NotNull
+    private Long unitId;
 }

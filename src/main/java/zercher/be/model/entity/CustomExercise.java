@@ -23,6 +23,10 @@ public class CustomExercise {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "unit_id", nullable = false)
+    private Unit unit;
+
     @Column(nullable = false, length = 100)
     private String title;
 
