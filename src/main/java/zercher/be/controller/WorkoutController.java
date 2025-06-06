@@ -10,72 +10,72 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import zercher.be.dto.exercise.*;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
+import zercher.be.dto.workout.*;
+import zercher.be.dto.workoutlabel.WorkoutLabelUpdateDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.response.PageResponse;
-import zercher.be.service.exercise.ExerciseService;
+import zercher.be.service.workout.WorkoutService;
 
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@Tag(name = "Exercise")
+@Tag(name = "Workout")
 @RequiredArgsConstructor
-@RequestMapping("/api/exercise")
+@RequestMapping("/api/workout")
 @SecurityRequirement(name = "Authentication")
-public class ExerciseController {
-    private final ExerciseService exerciseService;
+public class WorkoutController {
+    private final WorkoutService workoutService;
 
     @Tag(name = "Admin")
     @PostMapping("/create")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<BaseResponse<Void>> createExercise(@Valid @RequestBody ExerciseCreateDTO createDTO) {
-        exerciseService.createExercise(createDTO);
+    public ResponseEntity<BaseResponse<Void>> createWorkout(@Valid @RequestBody WorkoutCreateDTO createDTO) {
+        workoutService.createWorkout(createDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>(true));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BaseResponse<ExerciseViewAdminDTO>> getExercise(@PathVariable UUID id) {
-        var exerciseView = exerciseService.getExercise(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(exerciseView));
+    public ResponseEntity<BaseResponse<WorkoutViewDTO>> getWorkout(@PathVariable UUID id) {
+        var workoutView = workoutService.getWorkout(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(workoutView));
     }
 
     @Tag(name = "Admin")
     @GetMapping("/admin/search")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<PageResponse<ExerciseViewAdminDTO>> searchExerciseAdmin(@ParameterObject Pageable pageable, @Valid ExerciseSearchAdminDTO searchAdminDTO) {
-        var page = exerciseService.searchExercisesAdmin(pageable, searchAdminDTO);
+    public ResponseEntity<PageResponse<WorkoutViewListDTO>> searchWorkoutAdmin(@ParameterObject Pageable pageable, @Valid WorkoutSearchAdminDTO searchAdminDTO) {
+        var page = workoutService.searchWorkoutsAdmin(pageable, searchAdminDTO);
         return new ResponseEntity<>(new PageResponse<>(page), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<BaseResponse<List<ExerciseViewDTO>>> searchExercise(@Valid ExerciseSearchDTO searchDTO) {
-        var list = exerciseService.searchExercises(searchDTO);
+    public ResponseEntity<BaseResponse<List<WorkoutViewListDTO>>> searchWorkout(@Valid WorkoutSearchDTO searchDTO) {
+        var list = workoutService.searchWorkouts(searchDTO);
         return new ResponseEntity<>(new BaseResponse<>(list), HttpStatus.OK);
     }
 
     @Tag(name = "Admin")
     @PutMapping("/label/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<BaseResponse<Void>> updateLabel(@PathVariable Long id, @Valid @RequestBody ExerciseLabelUpdateDTO updateDTO) {
-        exerciseService.updateExerciseLabel(id, updateDTO);
+    public ResponseEntity<BaseResponse<Void>> updateLabel(@PathVariable Long id, @Valid @RequestBody WorkoutLabelUpdateDTO updateDTO) {
+        workoutService.updateWorkoutLabel(id, updateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 
     @Tag(name = "Admin")
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<BaseResponse<Void>> updateExercise(@PathVariable UUID id, @Valid @RequestBody ExerciseUpdateDTO updateDTO) {
-        exerciseService.updateExercise(id, updateDTO);
+    public ResponseEntity<BaseResponse<Void>> updateWorkout(@PathVariable UUID id, @Valid @RequestBody WorkoutUpdateDTO updateDTO) {
+        workoutService.updateWorkout(id, updateDTO);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 
     @Tag(name = "Admin")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<BaseResponse<Void>> deleteExercise(@PathVariable UUID id) {
-        exerciseService.deleteExercise(id);
+    public ResponseEntity<BaseResponse<Void>> deleteWorkout(@PathVariable UUID id) {
+        workoutService.deleteWorkout(id);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 }

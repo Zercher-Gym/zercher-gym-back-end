@@ -51,4 +51,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new BaseResponse<>("invalidDataProvided"));
     }
+
+    @ExceptionHandler({RoleLimitExceeded.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleRoleLimitExceededException(RoleLimitExceeded exception) {
+        log.error("Role limit exceeded!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>(exception.getMessage()));
+    }
+
+    @ExceptionHandler({InvalidBusinessLogic.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<BaseResponse<Void>> handleInvalidBusinessLogicException(InvalidBusinessLogic exception) {
+        log.error("Invalid business logic! {}", exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new BaseResponse<>(exception.getMessage()));
+    }
 }

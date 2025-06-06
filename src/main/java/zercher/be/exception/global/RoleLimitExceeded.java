@@ -1,4 +1,4 @@
-package zercher.be.exception.role;
+package zercher.be.exception.global;
 
 import lombok.experimental.StandardException;
 

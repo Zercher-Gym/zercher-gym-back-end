@@ -10,4 +10,5 @@
     <include file="/ddl/1746299334505-add-verification-token-type.xml" relativeToChangelogFile="true"/>
     <include file="/ddl/1746772675500-add-exercises.xml" relativeToChangelogFile="true"/>
     <include file="/ddl/1748285938115-add-custom-exercises.xml" relativeToChangelogFile="true"/>
+    <include file="/ddl/1749132715212-add-workouts.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

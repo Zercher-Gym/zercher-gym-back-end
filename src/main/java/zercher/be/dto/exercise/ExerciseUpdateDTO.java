@@ -1,4 +1,4 @@
-package zercher.be.dto.customexercise;
+package zercher.be.dto.exercise;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,19 +8,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomExerciseUpdateDTO {
+public class ExerciseUpdateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
-    private String title;
-
-    @NotBlank
-    @Size(max = 255)
-    private String description;
+    private String identifier;
 
     @NotNull
-    private Long unitId;
+    private Set<Long> units = new HashSet<>();
 }

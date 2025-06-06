@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.dto.unit.UnitViewDTO;
 
 import java.util.UUID;
 
@@ -25,4 +26,7 @@ public class CustomExerciseViewDTO {
     @NotBlank
     @Size(max = 255)
     private String description;
+
+    @NotNull
+    private UnitViewDTO unit;
 }

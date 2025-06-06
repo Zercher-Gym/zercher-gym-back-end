@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import zercher.be.dto.exerciselabel.ExerciseLabelViewAdminDTO;
+import zercher.be.dto.unit.UnitViewDTO;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,4 +28,7 @@ public class ExerciseViewAdminDTO {
 
     @NotNull
     private Set<ExerciseLabelViewAdminDTO> labels = new HashSet<>();
+
+    @NotNull
+    private Set<UnitViewDTO> units = new HashSet<>();
 }

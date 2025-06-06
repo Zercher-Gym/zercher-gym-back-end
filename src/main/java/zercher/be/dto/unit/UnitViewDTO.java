@@ -1,26 +1,24 @@
-package zercher.be.dto.customexercise;
+package zercher.be.dto.unit;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.model.enums.UnitType;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomExerciseUpdateDTO {
-    @NotBlank
-    @Size(max = 100)
-    private String title;
+public class UnitViewDTO {
+    @NotNull
+    private Long id;
 
     @NotBlank
-    @Size(max = 255)
-    private String description;
+    private String code;
 
     @NotNull
-    private Long unitId;
+    private UnitType type;
 }

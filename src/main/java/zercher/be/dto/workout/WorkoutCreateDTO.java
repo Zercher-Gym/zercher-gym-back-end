@@ -1,15 +1,14 @@
-package zercher.be.dto.exercise;
+package zercher.be.dto.workout;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import zercher.be.dto.exerciselabel.ExerciseLabelCreateDTO;
+import zercher.be.dto.workoutexercise.WorkoutExerciseCreateUpdateDTO;
+import zercher.be.dto.workoutlabel.WorkoutLabelCreateDTO;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -19,14 +18,14 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseCreateDTO implements Serializable {
+public class WorkoutCreateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String identifier;
 
     @NotNull
-    private Set<ExerciseLabelCreateDTO> labels = new HashSet<>();
+    private Set<WorkoutLabelCreateDTO> labels = new HashSet<>();
 
     @NotNull
-    private Set<Long> units = new HashSet<>();
+    private Set<WorkoutExerciseCreateUpdateDTO> exercises = new HashSet<>();
 }

@@ -13,6 +13,8 @@ public interface ExerciseService {
 
     void createExercise(ExerciseCreateDTO createDTO);
 
+    void updateExercise(UUID id, ExerciseUpdateDTO updateDTO);
+
     void updateExerciseLabel(Long id, ExerciseLabelUpdateDTO updateDTO);
 
     Page<ExerciseViewAdminDTO> searchExercisesAdmin(Pageable pageable, ExerciseSearchAdminDTO searchAdminDTO);

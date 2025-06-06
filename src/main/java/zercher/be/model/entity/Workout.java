@@ -1,7 +1,6 @@
 package zercher.be.model.entity;
 
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +15,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "exercises")
-public class Exercise {
+@Table(name = "workouts")
+public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -25,13 +24,6 @@ public class Exercise {
     @Column(nullable = false, unique = true, length = 100)
     private String identifier;
 
-    @OneToMany(mappedBy = "exercise")
-    private Set<ExerciseLabel> labels = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "exercise_units",
-            joinColumns = @JoinColumn(name = "exercise_id"),
-            inverseJoinColumns = @JoinColumn(name = "unit_id"))
-    private Set<Unit> units = new HashSet<>();
-
+    @OneToMany(mappedBy = "workout")
+    private Set<WorkoutLabel> labels = new HashSet<>();
 }
