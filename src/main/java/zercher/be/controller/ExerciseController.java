@@ -25,8 +25,6 @@ import java.util.List;
 @RequestMapping("/api/exercise")
 @SecurityRequirement(name = "Authentication")
 public class ExerciseController {
-    // add units to exercises
-
     private final ExerciseService exerciseService;
 
     @Tag(name = "Admin")
