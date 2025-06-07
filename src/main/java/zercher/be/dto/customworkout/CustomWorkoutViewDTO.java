@@ -1,4 +1,4 @@
-package zercher.be.dto.customexercise;
+package zercher.be.dto.customworkout;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,14 +7,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.dto.customexercise.CustomWorkoutCustomExerciseViewDTO;
+import zercher.be.dto.exercise.WorkoutExerciseViewDTO;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomExerciseCreateDTO implements Serializable {
+public class CustomWorkoutViewDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String title;
@@ -24,5 +28,8 @@ public class CustomExerciseCreateDTO implements Serializable {
     private String description;
 
     @NotNull
-    private Long unitId;
+    private Set<WorkoutExerciseViewDTO> exercises = new HashSet<>();
+
+    @NotNull
+    private Set<CustomWorkoutCustomExerciseViewDTO> customExercises = new HashSet<>();
 }

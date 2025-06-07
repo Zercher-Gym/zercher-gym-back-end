@@ -24,6 +24,9 @@ public class Role implements GrantedAuthority {
     @Column(name = "exercise_limit")
     private Integer exerciseLimit;
 
+    @Column(name = "workout_limit")
+    private Integer workoutLimit;
+
     @Override
     public String getAuthority() {
         return name;

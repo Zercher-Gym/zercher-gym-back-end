@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.customexercise.CustomExerciseCreateDTO;
 import zercher.be.dto.customexercise.CustomExerciseUpdateDTO;
@@ -45,8 +46,10 @@ public class CustomExerciseController {
         return new ResponseEntity<>(new BaseResponse<>(customExercises), HttpStatus.OK);
     }
 
+    @Tag(name = "Admin")
     @GetMapping("/admin/{userId}")
-    public ResponseEntity<BaseResponse<List<CustomExerciseViewDTO>>> getCustomExercisesByAdmin(@PathVariable UUID userId) {
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public ResponseEntity<BaseResponse<List<CustomExerciseViewDTO>>> getCustomExercisesAdmin(@PathVariable UUID userId) {
         var customExercises = customExerciseService.getCustomExercisesByUserId(userId);
         return new ResponseEntity<>(new BaseResponse<>(customExercises), HttpStatus.OK);
     }
@@ -60,7 +63,9 @@ public class CustomExerciseController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));
     }
 
-    @DeleteMapping("/custom/admin/{id}")
+    @Tag(name = "Admin")
+    @DeleteMapping("/admin/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> deleteCustomExerciseAdmin(@PathVariable UUID id) {
         customExerciseService.deleteCustomExercise(id);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponse<>(true));

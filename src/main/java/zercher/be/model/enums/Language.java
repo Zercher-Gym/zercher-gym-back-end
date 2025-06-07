@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Language {
-    RO("ro"),
-    EN("en");
+    ro("ro"),
+    en("en");
 
     private final String code;
 }

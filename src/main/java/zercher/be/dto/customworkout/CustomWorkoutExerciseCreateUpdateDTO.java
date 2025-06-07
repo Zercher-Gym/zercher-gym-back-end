@@ -1,4 +1,4 @@
-package zercher.be.dto.role;
+package zercher.be.dto.customworkout;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -7,15 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleLimitUpdateDTO implements Serializable {
-    @NotNull
-    private Integer exerciseLimit;
+public class CustomWorkoutExerciseCreateUpdateDTO implements Serializable {
+    private UUID exerciseId;
+
+    private UUID customExerciseId;
 
     @NotNull
-    private Integer workoutLimit;
+    private Long unitId;
+
+    @NotNull
+    private Integer quantity;
 }

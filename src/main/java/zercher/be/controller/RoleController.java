@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @Tag(name = "Role")
 @RequiredArgsConstructor
-@RequestMapping("/api/role")
+@RequestMapping("/api/role/admin")
 @SecurityRequirement(name = "Authentication")
 public class RoleController {
     private final RoleService roleService;

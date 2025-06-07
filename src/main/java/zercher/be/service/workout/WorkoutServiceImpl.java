@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
 import zercher.be.dto.workout.*;
-import zercher.be.dto.workoutexercise.WorkoutExerciseCreateUpdateDTO;
+import zercher.be.dto.workout.WorkoutExerciseCreateUpdateDTO;
 import zercher.be.dto.workoutlabel.WorkoutLabelUpdateDTO;
 import zercher.be.exception.global.InvalidBusinessLogic;
 import zercher.be.exception.global.ResourceExistsException;

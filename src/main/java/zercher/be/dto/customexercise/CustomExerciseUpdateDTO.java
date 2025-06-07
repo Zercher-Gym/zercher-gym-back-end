@@ -8,11 +8,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomExerciseUpdateDTO {
+public class CustomExerciseUpdateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String title;
