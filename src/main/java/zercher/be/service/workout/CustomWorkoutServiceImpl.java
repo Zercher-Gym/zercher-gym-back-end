@@ -11,7 +11,6 @@ import zercher.be.dto.customworkout.CustomWorkoutCreateUpdateDTO;
 import zercher.be.dto.customworkout.CustomWorkoutExerciseCreateUpdateDTO;
 import zercher.be.dto.customworkout.CustomWorkoutViewDTO;
 import zercher.be.dto.customworkout.CustomWorkoutViewListDTO;
-import zercher.be.dto.exercise.ExerciseViewDTO;
 import zercher.be.dto.exercise.WorkoutExerciseViewDTO;
 import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
 import zercher.be.exception.global.InvalidBusinessLogic;
@@ -20,7 +19,6 @@ import zercher.be.exception.global.RoleLimitExceeded;
 import zercher.be.mapper.*;
 import zercher.be.model.entity.CustomWorkout;
 import zercher.be.model.entity.CustomWorkoutExercise;
-import zercher.be.model.entity.Exercise;
 import zercher.be.model.enums.Language;
 import zercher.be.repository.RoleRepository;
 import zercher.be.repository.UnitRepository;
@@ -51,7 +49,6 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
     private final CustomWorkoutMapper customWorkoutMapper;
     private final CustomWorkoutExerciseMapper customWorkoutExerciseMapper;
     private final ExerciseLabelMapper exerciseLabelMapper;
-    private final WorkoutExerciseMapper workoutExerciseMapper;
 
     @Override
     public CustomWorkoutViewDTO getCustomWorkout(UUID id) {

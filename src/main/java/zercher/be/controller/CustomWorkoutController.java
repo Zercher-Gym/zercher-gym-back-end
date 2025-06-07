@@ -13,7 +13,6 @@ import zercher.be.dto.customworkout.CustomWorkoutCreateUpdateDTO;
 import zercher.be.dto.customworkout.CustomWorkoutViewListDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.service.workout.CustomWorkoutService;
-import zercher.be.service.workout.CustomWorkoutService;
 
 import java.util.List;
 import java.util.UUID;
