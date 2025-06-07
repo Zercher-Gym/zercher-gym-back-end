@@ -1,8 +1,10 @@
 package zercher.be.service.user;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import zercher.be.dto.user.*;
+import zercher.be.exception.global.InvalidBusinessLogic;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.UserMapper;
@@ -28,8 +31,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    @Value("${com.zercher.be.admin.username}")
+    private String adminUsername;
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final VerificationTokenRepository verificationTokenRepository;
@@ -85,6 +92,9 @@ public class UserServiceImpl implements UserService {
     public void updateUserAdmin(UUID id, UserUpdateAdminDTO updateDTO) {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
+        if (isUserAdmin(user)) {
+            throw new ResourceNotFoundException("userWithIdNotFound");
+        }
 
         userMapper.updateUserFromAdminDTO(updateDTO, user);
         var newRoles = roleRepository.findAllByNameIn(updateDTO.getRoles());
@@ -96,6 +106,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserUpdateDTO updateDTO) {
         var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (isUserAdmin(userDetails.getUsername())) {
+            throw new ResourceNotFoundException("userWithUsernameNotFound");
+        }
         var user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
 
@@ -116,9 +129,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public void deleteUser() {
         var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (isUserAdmin(userDetails.getUsername())) {
+            throw new ResourceNotFoundException("userWithUsernameNotFound");
+        }
         var user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
         verificationTokenRepository.deleteAllByUser(user);
@@ -126,11 +141,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public void deleteUser(UUID id) {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
+        if (isUserAdmin(user)) {
+            throw new ResourceNotFoundException("userWithIdNotFound");
+        }
         verificationTokenRepository.deleteAllByUser(user);
         userRepository.delete(user);
+    }
+
+    private boolean isUserAdmin(User user) {
+        return user.getUsername().equals(adminUsername);
+    }
+
+    private boolean isUserAdmin(String username) {
+        return username.equals(adminUsername);
     }
 }

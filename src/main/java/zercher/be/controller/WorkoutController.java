@@ -28,7 +28,7 @@ public class WorkoutController {
     private final WorkoutService workoutService;
 
     @Tag(name = "Admin")
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> createWorkout(@Valid @RequestBody WorkoutCreateDTO createDTO) {
         workoutService.createWorkout(createDTO);
@@ -56,7 +56,7 @@ public class WorkoutController {
     }
 
     @Tag(name = "Admin")
-    @PutMapping("/label/{id}")
+    @PutMapping("/admin/label/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> updateLabel(@PathVariable Long id, @Valid @RequestBody WorkoutLabelUpdateDTO updateDTO) {
         workoutService.updateWorkoutLabel(id, updateDTO);
@@ -64,7 +64,7 @@ public class WorkoutController {
     }
 
     @Tag(name = "Admin")
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> updateWorkout(@PathVariable UUID id, @Valid @RequestBody WorkoutUpdateDTO updateDTO) {
         workoutService.updateWorkout(id, updateDTO);
@@ -72,7 +72,7 @@ public class WorkoutController {
     }
 
     @Tag(name = "Admin")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
     public ResponseEntity<BaseResponse<Void>> deleteWorkout(@PathVariable UUID id) {
         workoutService.deleteWorkout(id);

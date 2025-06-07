@@ -21,4 +21,6 @@ public class RoleLimitViewDTO implements Serializable {
     private String name;
 
     private Integer exerciseLimit;
+
+    private Integer workoutLimit;
 }

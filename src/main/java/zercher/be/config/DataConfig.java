@@ -42,6 +42,7 @@ public class DataConfig implements ApplicationRunner {
                         new zercher.be.model.entity.Role(
                                 null,
                                 authority.getName(),
+                                null,
                                 null
                         )
                 );

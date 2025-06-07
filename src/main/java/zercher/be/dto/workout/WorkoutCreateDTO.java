@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.dto.workoutexercise.WorkoutExerciseCreateUpdateDTO;
 import zercher.be.dto.workoutlabel.WorkoutLabelCreateDTO;
 
 import java.io.Serializable;

@@ -26,7 +26,7 @@ public class UnitController {
     private final UnitService unitService;
 
     @Tag(name = "Admin")
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> createUnit(@Valid @RequestBody UnitCreateUpdateDTO createDTO) {
         unitService.createUnit(createDTO);
@@ -34,7 +34,7 @@ public class UnitController {
     }
 
     @Tag(name = "Admin")
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> updateUnit(@PathVariable Long id, @Valid @RequestBody UnitCreateUpdateDTO updateDTO) {
         unitService.updateUnit(id, updateDTO);
@@ -48,7 +48,7 @@ public class UnitController {
     }
 
     @Tag(name = "Admin")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<BaseResponse<Void>> deleteUnit(@PathVariable Long id) {
         unitService.deleteUnit(id);
