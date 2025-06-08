@@ -44,13 +44,13 @@ public class ExerciseController {
     @Tag(name = "Admin")
     @GetMapping("/admin/search")
     @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-    public ResponseEntity<PageResponse<ExerciseViewAdminDTO>> searchExerciseAdmin(@ParameterObject Pageable pageable, @Valid ExerciseSearchAdminDTO searchAdminDTO) {
+    public ResponseEntity<PageResponse<ExerciseViewAdminDTO>> searchExerciseAdmin(@ParameterObject Pageable pageable, @ParameterObject @Valid ExerciseSearchAdminDTO searchAdminDTO) {
         var page = exerciseService.searchExercisesAdmin(pageable, searchAdminDTO);
         return new ResponseEntity<>(new PageResponse<>(page), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<BaseResponse<List<ExerciseViewDTO>>> searchExercise(@Valid ExerciseSearchDTO searchDTO) {
+    public ResponseEntity<BaseResponse<List<ExerciseViewDTO>>> searchExercise(@ParameterObject @Valid ExerciseSearchDTO searchDTO) {
         var list = exerciseService.searchExercises(searchDTO);
         return new ResponseEntity<>(new BaseResponse<>(list), HttpStatus.OK);
     }

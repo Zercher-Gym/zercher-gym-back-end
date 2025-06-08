@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import zercher.be.dto.customexercise.CustomWorkoutCustomExerciseViewDTO;
-import zercher.be.dto.exercise.WorkoutExerciseViewDTO;
+import zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class CustomWorkoutViewDTO implements Serializable {
     private String description;
 
     @NotNull
-    private Set<WorkoutExerciseViewDTO> exercises = new HashSet<>();
+    private Set<CustomWorkoutExerciseViewDTO> exercises = new HashSet<>();
 
     @NotNull
     private Set<CustomWorkoutCustomExerciseViewDTO> customExercises = new HashSet<>();

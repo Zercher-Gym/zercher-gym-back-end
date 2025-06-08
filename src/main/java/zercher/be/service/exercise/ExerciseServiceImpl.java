@@ -149,6 +149,11 @@ public class ExerciseServiceImpl implements ExerciseService {
             exerciseResult.getLabels().put(exerciseLabel.getLanguage(), exerciseLabelMapper.entityToViewDTO(exerciseLabel));
         }
 
+        exerciseResult.setUnits(new HashSet<>());
+        for (var exerciseUnit : exercise.getUnits()) {
+            exerciseResult.getUnits().add(unitMapper.entityToViewDTO(exerciseUnit));
+        }
+
         return exerciseResult;
     }
 

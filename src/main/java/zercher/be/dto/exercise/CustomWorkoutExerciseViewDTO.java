@@ -18,9 +18,12 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseViewDTO implements Serializable {
+public class CustomWorkoutExerciseViewDTO implements Serializable {
     @NotNull
-    private UUID id;
+    private Long id;
+
+    @NotNull
+    private UUID exerciseId;
 
     @NotBlank
     @Size(max = 100)
@@ -31,4 +34,10 @@ public class ExerciseViewDTO implements Serializable {
 
     @NotNull
     private Set<UnitViewDTO> units = new HashSet<>();
+
+    @NotNull
+    private UnitViewDTO unit;
+
+    @NotNull
+    private Integer quantity;
 }
