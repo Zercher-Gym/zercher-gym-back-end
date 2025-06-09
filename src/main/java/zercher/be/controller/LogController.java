@@ -8,6 +8,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.logs.WorkoutLogCreateDTO;
 import zercher.be.dto.logs.WorkoutLogViewListDTO;
@@ -37,14 +38,28 @@ public class LogController {
         return new ResponseEntity<>(new PageResponse<>(page), HttpStatus.OK);
     }
 
-    // list logs admin
+    @Tag(name = "Admin")
+    @GetMapping("/admin/list/{userId}")
+    public ResponseEntity<PageResponse<WorkoutLogViewListDTO>> getWorkoutLogListAdmin(@PathVariable UUID userId, @ParameterObject Pageable pageable) {
+        var page = logService.getWorkoutLogListAdmin(userId, pageable);
+        return new ResponseEntity<>(new PageResponse<>(page), HttpStatus.OK);
+    }
 
-    // update log
+    // update logs
 
-    // delete logs admin
+    @Tag(name = "Admin")
+    @DeleteMapping("/admin/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+    public ResponseEntity<BaseResponse<Void>> deleteWorkoutLogAdmin(@PathVariable UUID id) {
+        logService.deleteWorkoutLog(id);
+        return new ResponseEntity<>(new BaseResponse<>(true), HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseResponse<Void>> deleteWorkoutLog(@PathVariable UUID id) {
+        if (!logService.workoutLogBelongsToUser(id)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new BaseResponse<>("workoutLogDoesNotBelongToUser"));
+        }
         logService.deleteWorkoutLog(id);
         return new ResponseEntity<>(new BaseResponse<>(true), HttpStatus.OK);
     }

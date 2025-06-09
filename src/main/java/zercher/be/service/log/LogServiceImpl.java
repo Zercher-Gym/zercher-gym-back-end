@@ -19,7 +19,6 @@ import zercher.be.model.entity.ExerciseLog;
 import zercher.be.model.entity.WorkoutLog;
 import zercher.be.model.enums.Language;
 import zercher.be.repository.UserRepository;
-import zercher.be.repository.exercise.ExerciseLabelRepository;
 import zercher.be.repository.exercise.ExerciseLogRepository;
 import zercher.be.repository.workout.*;
 
@@ -40,7 +39,6 @@ public class LogServiceImpl implements LogService {
     private final WorkoutExerciseRepository workoutExerciseRepository;
     private final CustomWorkoutRepository customWorkoutRepository;
     private final CustomWorkoutExerciseRepository customWorkoutExerciseRepository;
-    private final ExerciseLabelRepository exerciseLabelRepository;
     private final WorkoutLabelRepository workoutLabelRepository;
 
     private final WorkoutLabelMapper workoutLabelMapper;
@@ -144,6 +142,15 @@ public class LogServiceImpl implements LogService {
         return workoutLogs.map(this::createWorkoutLogViewListDTO);
     }
 
+    @Override
+    public Page<WorkoutLogViewListDTO> getWorkoutLogListAdmin(UUID userId, Pageable pageable) {
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("userWithIdNotFound"));
+
+        var workoutLogs = workoutLogRepository.findByUserOrderByCreatedAtDesc(user, pageable);
+        return workoutLogs.map(this::createWorkoutLogViewListDTO);
+    }
+
     private WorkoutLogViewListDTO createWorkoutLogViewListDTO(WorkoutLog workoutLog) {
         var result = new WorkoutLogViewListDTO();
         result.setId(workoutLog.getId());
@@ -172,5 +179,15 @@ public class LogServiceImpl implements LogService {
                 .orElseThrow(() -> new ResourceNotFoundException("workoutLogWithIdNotFound"));
         exerciseLogRepository.deleteExerciseLogsByWorkoutLog(workoutLog);
         workoutLogRepository.delete(workoutLog);
+    }
+
+    public boolean workoutLogBelongsToUser(UUID id) {
+        var userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("userWithUsernameNotFound"));
+
+        var workoutLog = workoutLogRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("workoutLogWithIdNotFound"));
+        return workoutLog.getUser().equals(user);
     }
 }

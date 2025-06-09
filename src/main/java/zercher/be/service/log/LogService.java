@@ -12,5 +12,9 @@ public interface LogService {
 
     Page<WorkoutLogViewListDTO> getWorkoutLogList(Pageable pageable);
 
+    Page<WorkoutLogViewListDTO> getWorkoutLogListAdmin(UUID userId, Pageable pageable);
+
     void deleteWorkoutLog(UUID id);
+
+    boolean workoutLogBelongsToUser(UUID id);
 }
