@@ -2,7 +2,7 @@ package zercher.be.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import zercher.be.dto.customexercise.CustomWorkoutCustomExerciseViewDTO;
+import zercher.be.dto.custom.CustomWorkoutCustomExerciseViewDTO;
 import zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO;
 import zercher.be.model.entity.CustomWorkoutExercise;
 

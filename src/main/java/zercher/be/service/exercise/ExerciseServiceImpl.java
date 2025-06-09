@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zercher.be.dto.exercise.*;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
+import zercher.be.dto.exercise.ExerciseLabelUpdateDTO;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.ExerciseLabelMapper;

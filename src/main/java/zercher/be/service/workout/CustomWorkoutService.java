@@ -1,8 +1,8 @@
 package zercher.be.service.workout;
 
-import zercher.be.dto.customworkout.CustomWorkoutCreateUpdateDTO;
-import zercher.be.dto.customworkout.CustomWorkoutViewDTO;
-import zercher.be.dto.customworkout.CustomWorkoutViewListDTO;
+import zercher.be.dto.custom.CustomWorkoutCreateUpdateDTO;
+import zercher.be.dto.custom.CustomWorkoutViewDTO;
+import zercher.be.dto.custom.CustomWorkoutViewListDTO;
 
 import java.util.List;
 import java.util.UUID;

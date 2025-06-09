@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.exercise.*;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
+import zercher.be.dto.exercise.ExerciseLabelUpdateDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.response.PageResponse;
 import zercher.be.service.exercise.ExerciseService;

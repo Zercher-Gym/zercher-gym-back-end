@@ -1,4 +1,4 @@
-package zercher.be.dto.customexercise;
+package zercher.be.dto.custom;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

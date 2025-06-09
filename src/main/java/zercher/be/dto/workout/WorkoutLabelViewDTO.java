@@ -1,26 +1,16 @@
-package zercher.be.dto.exerciselabel;
+package zercher.be.dto.workout;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.model.enums.Language;
-
-import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseLabelViewAdminDTO implements Serializable {
-    @NotNull
-    private Long id;
-
-    @NotNull
-    private Language language;
-
+public class WorkoutLabelViewDTO {
     @NotBlank
     private String title;
 

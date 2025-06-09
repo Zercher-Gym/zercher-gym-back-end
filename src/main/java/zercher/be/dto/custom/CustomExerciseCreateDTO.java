@@ -1,4 +1,4 @@
-package zercher.be.dto.exerciselabel;
+package zercher.be.dto.custom;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
 
@@ -15,10 +14,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseLabelCreateDTO implements Serializable {
-    @NotNull
-    private Language language;
-
+public class CustomExerciseCreateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String title;
@@ -26,4 +22,7 @@ public class ExerciseLabelCreateDTO implements Serializable {
     @NotBlank
     @Size(max = 255)
     private String description;
+
+    @NotNull
+    private Long unitId;
 }

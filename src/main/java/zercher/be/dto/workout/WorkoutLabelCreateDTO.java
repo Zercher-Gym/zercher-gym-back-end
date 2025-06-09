@@ -1,4 +1,4 @@
-package zercher.be.dto.customworkout;
+package zercher.be.dto.workout;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,17 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomWorkoutViewListDTO implements Serializable {
+public class WorkoutLabelCreateDTO implements Serializable {
     @NotNull
-    private UUID id;
+    private Language language;
 
     @NotBlank
     @Size(max = 100)

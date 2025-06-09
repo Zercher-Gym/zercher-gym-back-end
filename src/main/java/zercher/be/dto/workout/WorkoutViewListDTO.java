@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.dto.workoutlabel.WorkoutLabelViewDTO;
 import zercher.be.model.enums.Language;
 
 import java.io.Serializable;

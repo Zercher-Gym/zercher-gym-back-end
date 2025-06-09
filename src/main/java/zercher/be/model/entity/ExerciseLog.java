@@ -15,8 +15,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "journal_logs")
-public class JournalLog {
+@Table(name = "exercise_logs")
+public class ExerciseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -26,6 +26,10 @@ public class JournalLog {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "workout_log_id")
+    private WorkoutLog workoutLog;
+
+    @ManyToOne
     @JoinColumn(name = "custom_workout_exercise_id")
     private CustomWorkoutExercise customWorkoutExercise;
 
@@ -33,8 +37,8 @@ public class JournalLog {
     @JoinColumn(name = "workout_exercise_id")
     private WorkoutExercise workoutExercise;
 
-    @Column(nullable = false)
-    private String data;
+    @Column(name = "details")
+    private String details;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

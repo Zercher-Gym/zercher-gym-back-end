@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import zercher.be.dto.customexercise.CustomExerciseCreateDTO;
-import zercher.be.dto.customexercise.CustomExerciseUpdateDTO;
-import zercher.be.dto.customexercise.CustomExerciseViewDTO;
+import zercher.be.dto.custom.CustomExerciseCreateDTO;
+import zercher.be.dto.custom.CustomExerciseUpdateDTO;
+import zercher.be.dto.custom.CustomExerciseViewDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.service.exercise.CustomExerciseService;
 
