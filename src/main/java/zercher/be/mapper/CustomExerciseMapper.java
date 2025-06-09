@@ -1,9 +1,9 @@
 package zercher.be.mapper;
 
 import org.mapstruct.*;
-import zercher.be.dto.customexercise.CustomExerciseCreateDTO;
-import zercher.be.dto.customexercise.CustomExerciseUpdateDTO;
-import zercher.be.dto.customexercise.CustomExerciseViewDTO;
+import zercher.be.dto.custom.CustomExerciseCreateDTO;
+import zercher.be.dto.custom.CustomExerciseUpdateDTO;
+import zercher.be.dto.custom.CustomExerciseViewDTO;
 import zercher.be.model.entity.CustomExercise;
 
 @Mapper(componentModel = "spring", uses = {UnitMapper.class})

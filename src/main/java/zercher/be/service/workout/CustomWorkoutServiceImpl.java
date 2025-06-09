@@ -6,13 +6,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import zercher.be.dto.customexercise.CustomWorkoutCustomExerciseViewDTO;
-import zercher.be.dto.customworkout.CustomWorkoutCreateUpdateDTO;
-import zercher.be.dto.customworkout.CustomWorkoutExerciseCreateUpdateDTO;
-import zercher.be.dto.customworkout.CustomWorkoutViewDTO;
-import zercher.be.dto.customworkout.CustomWorkoutViewListDTO;
-import zercher.be.dto.exercise.WorkoutExerciseViewDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
+import zercher.be.dto.custom.CustomWorkoutCustomExerciseViewDTO;
+import zercher.be.dto.custom.CustomWorkoutCreateUpdateDTO;
+import zercher.be.dto.custom.CustomWorkoutViewDTO;
+import zercher.be.dto.custom.CustomWorkoutViewListDTO;
+import zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO;
+import zercher.be.dto.exercise.ExerciseLabelViewDTO;
 import zercher.be.exception.global.InvalidBusinessLogic;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.exception.global.RoleLimitExceeded;
@@ -46,6 +45,7 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
     private final CustomExerciseRepository customExerciseRepository;
     private final ExerciseLabelRepository exerciseLabelRepository;
 
+    private final UnitMapper unitMapper;
     private final CustomWorkoutMapper customWorkoutMapper;
     private final CustomWorkoutExerciseMapper customWorkoutExerciseMapper;
     private final ExerciseLabelMapper exerciseLabelMapper;
@@ -95,7 +95,7 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
         customWorkout.setUser(user);
         customWorkoutRepository.save(customWorkout);
 
-        addCustomWorkoutExercises(customWorkout, createDTO.getExercises());
+        addCustomWorkoutExercises(customWorkout, createDTO);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
                 .orElseThrow(() -> new ResourceNotFoundException("customWorkoutWithIdNotFound"));
 
         customWorkoutExerciseRepository.deleteCustomWorkoutExercisesByCustomWorkout(customWorkout);
-        addCustomWorkoutExercises(customWorkout, updateDTO.getExercises());
+        addCustomWorkoutExercises(customWorkout, updateDTO);
         customWorkoutMapper.updateCustomWorkoutFromDTO(updateDTO, customWorkout);
 
         customWorkoutRepository.save(customWorkout);
@@ -130,49 +130,56 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
         return customWorkout.getUser().equals(user);
     }
 
-    private void addCustomWorkoutExercises(CustomWorkout customWorkout, Set<CustomWorkoutExerciseCreateUpdateDTO> createExerciseDTOs) {
-        for (var createExerciseDTO : createExerciseDTOs) {
-            var unit = unitRepository.findById(createExerciseDTO.getUnitId())
+    private void addCustomWorkoutExercises(CustomWorkout customWorkout, CustomWorkoutCreateUpdateDTO createDTO) {
+        var customWorkoutExercises = new ArrayList<CustomWorkoutExercise>();
+
+        for (var exerciseDTO : createDTO.getExercises()) {
+            var unit = unitRepository.findById(exerciseDTO.getUnitId())
                     .orElseThrow(() -> new ResourceNotFoundException("unitWithIdNotFound"));
 
             var customWorkoutExercise = new CustomWorkoutExercise();
             customWorkoutExercise.setCustomWorkout(customWorkout);
             customWorkoutExercise.setUnit(unit);
-            customWorkoutExercise.setQuantity(createExerciseDTO.getQuantity());
+            customWorkoutExercise.setQuantity(exerciseDTO.getQuantity());
 
-            if (createExerciseDTO.getExerciseId() == null && createExerciseDTO.getCustomExerciseId() == null) {
-                throw new InvalidBusinessLogic("noExerciseIdProvided");
+            var exercise = exerciseRepository.findById(exerciseDTO.getExerciseId())
+                    .orElseThrow(() -> new ResourceNotFoundException("exerciseWithIdNotFound"));
+            if (!exercise.getUnits().contains(unit)) {
+                throw new InvalidBusinessLogic("exerciseDoesNotHaveProvidedUnit");
             }
-            if (createExerciseDTO.getExerciseId() != null && createExerciseDTO.getCustomExerciseId() != null) {
-                throw new InvalidBusinessLogic("twoExercisesProvided");
-            }
-            if (createExerciseDTO.getExerciseId() != null) {
-                var exercise = exerciseRepository.findById(createExerciseDTO.getExerciseId())
-                        .orElseThrow(() -> new ResourceNotFoundException("exerciseWithIdNotFound"));
-                if (!exercise.getUnits().contains(unit)) {
-                    throw new InvalidBusinessLogic("exerciseDoesNotHaveProvidedUnit");
-                }
-                customWorkoutExercise.setExercise(exercise);
-                customWorkoutExercise.setCustomExercise(null);
-            }
-            if (createExerciseDTO.getCustomExerciseId() != null) {
-                var customExercise = customExerciseRepository.findById(createExerciseDTO.getCustomExerciseId())
-                        .orElseThrow(() -> new ResourceNotFoundException("customExerciseWithIdNotFound"));
-                if (!customExercise.getUnit().equals(unit)) {
-                    throw new InvalidBusinessLogic("exerciseDoesNotHaveProvidedUnit");
-                }
-                customWorkoutExercise.setExercise(null);
-                customWorkoutExercise.setCustomExercise(customExercise);
-            }
+            customWorkoutExercise.setExercise(exercise);
+            customWorkoutExercise.setCustomExercise(null);
 
-            customWorkoutExerciseRepository.save(customWorkoutExercise);
+            customWorkoutExercises.add(customWorkoutExercise);
         }
+
+        for (var customExerciseDTO : createDTO.getCustomExercises()) {
+            var unit = unitRepository.findById(customExerciseDTO.getUnitId())
+                    .orElseThrow(() -> new ResourceNotFoundException("unitWithIdNotFound"));
+
+            var customWorkoutExercise = new CustomWorkoutExercise();
+            customWorkoutExercise.setCustomWorkout(customWorkout);
+            customWorkoutExercise.setUnit(unit);
+            customWorkoutExercise.setQuantity(customExerciseDTO.getQuantity());
+
+            var customExercise = customExerciseRepository.findById(customExerciseDTO.getCustomExerciseId())
+                    .orElseThrow(() -> new ResourceNotFoundException("exerciseWithIdNotFound"));
+            if (!customExercise.getUnit().equals(unit)) {
+                throw new InvalidBusinessLogic("exerciseDoesNotHaveProvidedUnit");
+            }
+            customWorkoutExercise.setExercise(null);
+            customWorkoutExercise.setCustomExercise(customExercise);
+
+            customWorkoutExercises.add(customWorkoutExercise);
+        }
+
+        customWorkoutExerciseRepository.saveAll(customWorkoutExercises);
     }
 
     private CustomWorkoutViewDTO customWorkoutToViewDTO(CustomWorkout customWorkout) {
         var customWorkoutViewDTO = customWorkoutMapper.customWorkoutToViewDTO(customWorkout);
 
-        var exercises = new HashSet<WorkoutExerciseViewDTO>();
+        var exercises = new HashSet<CustomWorkoutExerciseViewDTO>();
         var customExercises = new HashSet<CustomWorkoutCustomExerciseViewDTO>();
 
         var customWorkoutExercises = customWorkoutExerciseRepository.findByCustomWorkout(customWorkout);
@@ -189,7 +196,10 @@ public class CustomWorkoutServiceImpl implements CustomWorkoutService {
                     labels.put(exerciseLabel.getLanguage(), exerciseLabelMapper.entityToViewDTO(exerciseLabel));
                 }
 
+                var units = customWorkoutExercise.getExercise().getUnits().stream().map(unitMapper::entityToViewDTO).collect(Collectors.toSet());
+
                 exercise.setLabels(labels);
+                exercise.setUnits(units);
                 exercises.add(exercise);
             }
         }

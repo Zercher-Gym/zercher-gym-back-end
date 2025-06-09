@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1749456629517-1" author="neacsumihai2005">
+        <createTable tableName="exercise_logs">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_exercise_logs"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="workout_log_id" type="UUID"/>
+            <column name="custom_workout_exercise_id" type="BIGINT"/>
+            <column name="workout_exercise_id" type="BIGINT"/>
+            <column name="details" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749456629517-2" author="neacsumihai2005">
+        <createTable tableName="workout_logs">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_workout_logs"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="custom_workout_id" type="UUID"/>
+            <column name="workout_id" type="UUID"/>
+            <column name="details" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1749456629517-3" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="custom_workout_exercise_id" baseTableName="exercise_logs"
+                                 constraintName="FK_EXERCISE_LOGS_ON_CUSTOM_WORKOUT_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="custom_workout_exercises"/>
+    </changeSet>
+    <changeSet id="1749456629517-4" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="exercise_logs"
+                                 constraintName="FK_EXERCISE_LOGS_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749456629517-5" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="workout_exercise_id" baseTableName="exercise_logs"
+                                 constraintName="FK_EXERCISE_LOGS_ON_WORKOUT_EXERCISE" referencedColumnNames="id"
+                                 referencedTableName="workout_exercises"/>
+    </changeSet>
+    <changeSet id="1749456629517-6" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="workout_log_id" baseTableName="exercise_logs"
+                                 constraintName="FK_EXERCISE_LOGS_ON_WORKOUT_LOG" referencedColumnNames="id"
+                                 referencedTableName="workout_logs"/>
+    </changeSet>
+    <changeSet id="1749456629517-7" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="custom_workout_id" baseTableName="workout_logs"
+                                 constraintName="FK_WORKOUT_LOGS_ON_CUSTOM_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="custom_workouts"/>
+    </changeSet>
+    <changeSet id="1749456629517-8" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="workout_logs"
+                                 constraintName="FK_WORKOUT_LOGS_ON_USER" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1749456629517-9" author="neacsumihai2005">
+        <addForeignKeyConstraint baseColumnNames="workout_id" baseTableName="workout_logs"
+                                 constraintName="FK_WORKOUT_LOGS_ON_WORKOUT" referencedColumnNames="id"
+                                 referencedTableName="workouts"/>
+    </changeSet>
+
+</databaseChangeLog>

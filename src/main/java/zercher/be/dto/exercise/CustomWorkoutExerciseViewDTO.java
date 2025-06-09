@@ -1,4 +1,4 @@
-package zercher.be.dto.customexercise;
+package zercher.be.dto.exercise;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,26 +8,35 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import zercher.be.dto.unit.UnitViewDTO;
+import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomExerciseViewDTO implements Serializable {
+public class CustomWorkoutExerciseViewDTO implements Serializable {
     @NotNull
-    private UUID id;
+    private Long id;
+
+    @NotNull
+    private UUID exerciseId;
 
     @NotBlank
     @Size(max = 100)
-    private String title;
+    private String identifier;
 
-    @NotBlank
-    @Size(max = 255)
-    private String description;
+    @NotNull
+    private Map<Language, ExerciseLabelViewDTO> labels = new HashMap<>();
+
+    @NotNull
+    private Set<UnitViewDTO> units = new HashSet<>();
 
     @NotNull
     private UnitViewDTO unit;
+
+    @NotNull
+    private Integer quantity;
 }

@@ -1,8 +1,8 @@
 package zercher.be.service.exercise;
 
-import zercher.be.dto.customexercise.CustomExerciseCreateDTO;
-import zercher.be.dto.customexercise.CustomExerciseUpdateDTO;
-import zercher.be.dto.customexercise.CustomExerciseViewDTO;
+import zercher.be.dto.custom.CustomExerciseCreateDTO;
+import zercher.be.dto.custom.CustomExerciseUpdateDTO;
+import zercher.be.dto.custom.CustomExerciseViewDTO;
 
 import java.util.List;
 import java.util.UUID;

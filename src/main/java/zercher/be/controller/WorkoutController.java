@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.workout.*;
-import zercher.be.dto.workoutlabel.WorkoutLabelUpdateDTO;
+import zercher.be.dto.workout.WorkoutLabelUpdateDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.response.PageResponse;
 import zercher.be.service.workout.WorkoutService;
@@ -50,7 +50,7 @@ public class WorkoutController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<BaseResponse<List<WorkoutViewListDTO>>> searchWorkout(@Valid WorkoutSearchDTO searchDTO) {
+    public ResponseEntity<BaseResponse<List<WorkoutViewListDTO>>> searchWorkout(@ParameterObject @Valid WorkoutSearchDTO searchDTO) {
         var list = workoutService.searchWorkouts(searchDTO);
         return new ResponseEntity<>(new BaseResponse<>(list), HttpStatus.OK);
     }

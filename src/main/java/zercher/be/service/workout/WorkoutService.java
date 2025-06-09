@@ -3,7 +3,7 @@ package zercher.be.service.workout;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import zercher.be.dto.workout.*;
-import zercher.be.dto.workoutlabel.WorkoutLabelUpdateDTO;
+import zercher.be.dto.workout.WorkoutLabelUpdateDTO;
 
 import java.util.List;
 import java.util.UUID;

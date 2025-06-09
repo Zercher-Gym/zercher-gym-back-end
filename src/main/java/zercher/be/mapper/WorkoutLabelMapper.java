@@ -2,9 +2,9 @@ package zercher.be.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import zercher.be.dto.workoutlabel.WorkoutLabelCreateDTO;
-import zercher.be.dto.workoutlabel.WorkoutLabelUpdateDTO;
-import zercher.be.dto.workoutlabel.WorkoutLabelViewDTO;
+import zercher.be.dto.workout.WorkoutLabelCreateDTO;
+import zercher.be.dto.workout.WorkoutLabelUpdateDTO;
+import zercher.be.dto.workout.WorkoutLabelViewDTO;
 import zercher.be.model.entity.WorkoutLabel;
 
 @Mapper(componentModel = "spring")

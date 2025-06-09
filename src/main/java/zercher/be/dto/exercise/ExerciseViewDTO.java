@@ -7,21 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
 import zercher.be.dto.unit.UnitViewDTO;
 import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExerciseViewDTO implements Serializable {
+    @NotNull
+    private UUID id;
+
     @NotBlank
     @Size(max = 100)
     private String identifier;
