@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import zercher.be.dto.logs.WorkoutLogCreateDTO;
+import zercher.be.dto.logs.WorkoutLogViewDTO;
 import zercher.be.dto.logs.WorkoutLogViewListDTO;
 import zercher.be.response.BaseResponse;
 import zercher.be.response.PageResponse;
@@ -30,6 +31,12 @@ public class LogController {
     public ResponseEntity<BaseResponse<Void>> createWorkoutLog(@Valid @RequestBody WorkoutLogCreateDTO createDTO) {
         logService.createWorkoutLog(createDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(new BaseResponse<>(true));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BaseResponse<WorkoutLogViewDTO>> getWorkoutLog(@PathVariable UUID id) {
+        var workoutLog = logService.getWorkoutLogById(id);
+        return new ResponseEntity<>(new BaseResponse<>(workoutLog), HttpStatus.OK);
     }
 
     @GetMapping("/list")
