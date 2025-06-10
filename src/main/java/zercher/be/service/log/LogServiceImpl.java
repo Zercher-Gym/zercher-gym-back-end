@@ -8,9 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import zercher.be.dto.logs.ExerciseLogCreateDTO;
-import zercher.be.dto.logs.WorkoutLogCreateDTO;
-import zercher.be.dto.logs.WorkoutLogViewListDTO;
+import zercher.be.dto.logs.*;
 import zercher.be.dto.workout.WorkoutLabelViewDTO;
 import zercher.be.exception.global.InvalidBusinessLogic;
 import zercher.be.exception.global.ResourceNotFoundException;
@@ -22,10 +20,7 @@ import zercher.be.repository.UserRepository;
 import zercher.be.repository.exercise.ExerciseLogRepository;
 import zercher.be.repository.workout.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -75,58 +70,33 @@ public class LogServiceImpl implements LogService {
         if (createDTO.getExercises() != null) {
             createExerciseLogs(workoutLog, createDTO.getExercises());
         }
-
-        if (createDTO.getCustomExercises() != null) {
-            createCustomExerciseLogs(workoutLog, createDTO.getCustomExercises());
-        }
     }
 
     private void createExerciseLogs(WorkoutLog workoutLog, List<ExerciseLogCreateDTO> exercises) {
         List<ExerciseLog> exerciseLogs = new ArrayList<>();
         for (var exercise : exercises) {
-            var workoutExerciseOptional = workoutExerciseRepository.findById(exercise.getWorkoutExerciseId());
-            var customWorkoutExerciseOptional = customWorkoutExerciseRepository.findById(exercise.getWorkoutExerciseId());
-
-            if (workoutExerciseOptional.isEmpty() && customWorkoutExerciseOptional.isEmpty()) {
-                throw new InvalidBusinessLogic("workoutExerciseWithIdNotFound");
-            }
-
-            if (workoutExerciseOptional.isPresent()) {
+            if (exercise.getWorkoutExerciseId() != null) {
+                var workoutExercise = workoutExerciseRepository.findById(exercise.getWorkoutExerciseId())
+                        .orElseThrow(() -> new ResourceNotFoundException("workoutExerciseWithIdNotFound"));
                 for (var details : exercise.getDetailsList()) {
                     var exerciseLog = new ExerciseLog();
                     exerciseLog.setWorkoutLog(workoutLog);
-                    exerciseLog.setWorkoutExercise(workoutExerciseOptional.get());
+                    exerciseLog.setWorkoutExercise(workoutExercise);
                     exerciseLog.setDetails(details);
                     exerciseLog.setUser(workoutLog.getUser());
                     exerciseLogs.add(exerciseLog);
                 }
             } else {
+                var customWorkoutExercise = customWorkoutExerciseRepository.findById(exercise.getCustomWorkoutExerciseId())
+                        .orElseThrow(() -> new ResourceNotFoundException("customWorkoutExerciseWithIdNotFound"));
                 for (var details : exercise.getDetailsList()) {
                     var exerciseLog = new ExerciseLog();
                     exerciseLog.setWorkoutLog(workoutLog);
-                    exerciseLog.setCustomWorkoutExercise(customWorkoutExerciseOptional.get());
+                    exerciseLog.setCustomWorkoutExercise(customWorkoutExercise);
                     exerciseLog.setDetails(details);
                     exerciseLog.setUser(workoutLog.getUser());
                     exerciseLogs.add(exerciseLog);
                 }
-            }
-        }
-        exerciseLogRepository.saveAll(exerciseLogs);
-    }
-
-    private void createCustomExerciseLogs(WorkoutLog workoutLog, List<ExerciseLogCreateDTO> customExercises) {
-        List<ExerciseLog> exerciseLogs = new ArrayList<>();
-        for (var exercise : customExercises) {
-            var customWorkoutExercise = customWorkoutExerciseRepository.findById(exercise.getWorkoutExerciseId())
-                    .orElseThrow(() -> new ResourceNotFoundException("customWorkoutExerciseWithIdNotFound"));
-
-            for (var details : exercise.getDetailsList()) {
-                var exerciseLog = new ExerciseLog();
-                exerciseLog.setWorkoutLog(workoutLog);
-                exerciseLog.setCustomWorkoutExercise(customWorkoutExercise);
-                exerciseLog.setUser(workoutLog.getUser());
-                exerciseLog.setDetails(details);
-                exerciseLogs.add(exerciseLog);
             }
         }
         exerciseLogRepository.saveAll(exerciseLogs);
@@ -151,6 +121,14 @@ public class LogServiceImpl implements LogService {
         return workoutLogs.map(this::createWorkoutLogViewListDTO);
     }
 
+    @Override
+    public WorkoutLogViewDTO getWorkoutLogById(UUID id) {
+        var workoutLog = workoutLogRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("workoutLogWithIdNotFound"));
+
+        return createWorkoutLogViewDTO(workoutLog);
+    }
+
     private WorkoutLogViewListDTO createWorkoutLogViewListDTO(WorkoutLog workoutLog) {
         var result = new WorkoutLogViewListDTO();
         result.setId(workoutLog.getId());
@@ -171,6 +149,46 @@ public class LogServiceImpl implements LogService {
         }
 
         return result;
+    }
+
+    private WorkoutLogViewDTO createWorkoutLogViewDTO(WorkoutLog workoutLog) {
+        var exerciseLogs = exerciseLogRepository.findByWorkoutLog(workoutLog);
+
+        var workoutLogViewDTO = new WorkoutLogViewDTO();
+        workoutLogViewDTO.setId(workoutLog.getId());
+        workoutLogViewDTO.setCreatedAt(workoutLog.getCreatedAt());
+
+        if (workoutLog.getCustomWorkout() != null) {
+            workoutLogViewDTO.setTitle(workoutLog.getCustomWorkout().getTitle());
+            workoutLogViewDTO.setDescription(workoutLog.getCustomWorkout().getDescription());
+            workoutLogViewDTO.setCustomWorkoutId(workoutLog.getCustomWorkout().getId());
+        } else {
+            workoutLogViewDTO.setWorkoutId(workoutLog.getWorkout().getId());
+            var labels = new HashMap<Language, WorkoutLabelViewDTO>();
+
+            var workoutLabels = workoutLabelRepository.findByWorkout(workoutLog.getWorkout());
+            for (var workoutLabel : workoutLabels) {
+                labels.put(workoutLabel.getLanguage(), workoutLabelMapper.entityToViewDTO(workoutLabel));
+            }
+
+            workoutLogViewDTO.setLabels(labels);
+        }
+
+        workoutLogViewDTO.setExerciseLogs(new HashSet<>());
+
+        for (var exerciseLog : exerciseLogs) {
+            var exerciseLogViewDTO = new ExerciseLogViewDTO();
+            exerciseLogViewDTO.setDetails(exerciseLog.getDetails());
+            if (exerciseLog.getWorkoutExercise() != null) {
+                exerciseLogViewDTO.setWorkoutExerciseId(exerciseLog.getWorkoutExercise().getId());
+            }
+            if (exerciseLog.getCustomWorkoutExercise() != null) {
+                exerciseLogViewDTO.setCustomWorkoutExerciseId(exerciseLog.getCustomWorkoutExercise().getId());
+            }
+            workoutLogViewDTO.getExerciseLogs().add(exerciseLogViewDTO);
+        }
+
+        return workoutLogViewDTO;
     }
 
     @Override

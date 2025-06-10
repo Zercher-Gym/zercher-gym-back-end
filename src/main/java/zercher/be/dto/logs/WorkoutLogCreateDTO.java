@@ -22,6 +22,4 @@ public class WorkoutLogCreateDTO implements Serializable {
     private String details;
 
     private List<ExerciseLogCreateDTO> exercises = new ArrayList<>();
-
-    private List<ExerciseLogCreateDTO> customExercises = new ArrayList<>();
 }
