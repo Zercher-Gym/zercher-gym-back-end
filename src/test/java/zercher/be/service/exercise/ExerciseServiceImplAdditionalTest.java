@@ -15,7 +15,7 @@ import zercher.be.dto.exercise.ExerciseSearchAdminDTO;
 import zercher.be.dto.exercise.ExerciseSearchDTO;
 import zercher.be.dto.exercise.ExerciseViewAdminDTO;
 import zercher.be.dto.exercise.ExerciseViewDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewAdminDTO;
+import zercher.be.dto.exercise.ExerciseLabelViewAdminDTO;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.ExerciseLabelMapper;
 import zercher.be.mapper.ExerciseMapper;
@@ -75,7 +75,7 @@ class ExerciseServiceImplAdditionalTest {
         label1 = new ExerciseLabel();
         label1.setId(1L);
         label1.setExercise(ex1);
-        label1.setLanguage(Language.EN);
+        label1.setLanguage(Language.en);
         label1.setTitle("Titlu1");
         label1.setDescription("Descriere1");
     }
@@ -99,7 +99,7 @@ class ExerciseServiceImplAdditionalTest {
 
         // Mapper-ul de etichetă
         ExerciseLabelViewAdminDTO labelAdminDTO = new ExerciseLabelViewAdminDTO();
-        labelAdminDTO.setLanguage(Language.EN);
+        labelAdminDTO.setLanguage(Language.en);
         labelAdminDTO.setTitle("Titlu1");
         labelAdminDTO.setDescription("Descriere1");
         when(exerciseLabelMapper.entityToViewAdminDTO(label1)).thenReturn(labelAdminDTO);

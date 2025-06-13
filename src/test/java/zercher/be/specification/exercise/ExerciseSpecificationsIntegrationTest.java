@@ -61,21 +61,21 @@ class ExerciseSpecificationsIntegrationTest {
         // Creăm etichete pentru exAlpha și exBeta (fără să setăm manual ID-uri):
         labelAlphaEn = new ExerciseLabel();
         labelAlphaEn.setExercise(exAlpha);
-        labelAlphaEn.setLanguage(Language.EN);
+        labelAlphaEn.setLanguage(Language.en);
         labelAlphaEn.setTitle("Alpha");
         labelAlphaEn.setDescription("First exercise");
         exerciseLabelRepository.save(labelAlphaEn);
 
         labelAlphaRo = new ExerciseLabel();
         labelAlphaRo.setExercise(exAlpha);
-        labelAlphaRo.setLanguage(Language.RO);
+        labelAlphaRo.setLanguage(Language.ro);
         labelAlphaRo.setTitle("Alfa");
         labelAlphaRo.setDescription("Primul exercițiu");
         exerciseLabelRepository.save(labelAlphaRo);
 
         labelBetaEn = new ExerciseLabel();
         labelBetaEn.setExercise(exBeta);
-        labelBetaEn.setLanguage(Language.EN);
+        labelBetaEn.setLanguage(Language.en);
         labelBetaEn.setTitle("Beta");
         labelBetaEn.setDescription("Second exercise");
         exerciseLabelRepository.save(labelBetaEn);
@@ -121,7 +121,7 @@ class ExerciseSpecificationsIntegrationTest {
     void whenFilteringByLanguageIs_thenOnlyExercisesWithThatLanguageAppear() {
         var pageable = PageRequest.of(0, 10);
         Specification<Exercise> spec = Specification
-                .where(ExerciseSpecifications.languageIs(Language.RO));
+                .where(ExerciseSpecifications.languageIs(Language.ro));
 
         var page = exerciseRepository.findAll(spec, pageable);
         List<Exercise> content = page.getContent();

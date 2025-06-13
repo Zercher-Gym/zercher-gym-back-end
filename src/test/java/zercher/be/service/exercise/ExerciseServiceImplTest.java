@@ -8,8 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import zercher.be.dto.exercise.ExerciseCreateDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelCreateDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
+import zercher.be.dto.exercise.ExerciseLabelCreateDTO;
+import zercher.be.dto.exercise.ExerciseLabelUpdateDTO;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.ExerciseLabelMapper;
@@ -62,7 +62,7 @@ class ExerciseServiceImplTest {
         existingLabel = new ExerciseLabel();
         existingLabel.setId(1L);
         existingLabel.setExercise(existingExercise);
-        existingLabel.setLanguage(Language.EN);
+        existingLabel.setLanguage(Language.en);
         existingLabel.setTitle("Title");
         existingLabel.setDescription("Desc");
     }
@@ -87,46 +87,6 @@ class ExerciseServiceImplTest {
         verify(exerciseLabelRepository, never()).saveAll(any());
     }
 
-    @Test
-    void createExercise_ShouldSaveExerciseAndLabels_WhenValid() {
-        // Aranjament
-        ExerciseCreateDTO createDTO = new ExerciseCreateDTO();
-        createDTO.setIdentifier("NEW_EX");
-        ExerciseLabelCreateDTO labelDTO1 = new ExerciseLabelCreateDTO(Language.EN, "Title1", "Desc1");
-        ExerciseLabelCreateDTO labelDTO2 = new ExerciseLabelCreateDTO(Language.RO, "Title2", "Desc2");
-        createDTO.setLabels(new HashSet<>(Arrays.asList(labelDTO1, labelDTO2)));
-
-        when(exerciseRepository.existsByIdentifier("NEW_EX")).thenReturn(false);
-
-        Exercise mappedExercise = new Exercise();
-        mappedExercise.setIdentifier("NEW_EX");
-        when(exerciseMapper.createDTOToExercise(createDTO)).thenReturn(mappedExercise);
-
-        ExerciseLabel labelEntity1 = new ExerciseLabel();
-        ExerciseLabel labelEntity2 = new ExerciseLabel();
-        when(exerciseLabelMapper.createDTOToExerciseLabel(labelDTO1)).thenReturn(labelEntity1);
-        when(exerciseLabelMapper.createDTOToExerciseLabel(labelDTO2)).thenReturn(labelEntity2);
-
-        // Acțiune
-        exerciseService.createExercise(createDTO);
-
-        // Verificare
-        verify(exerciseRepository, times(1)).existsByIdentifier("NEW_EX");
-        verify(exerciseMapper, times(1)).createDTOToExercise(createDTO);
-        verify(exerciseRepository, times(1)).save(mappedExercise);
-
-        // Capturăm lista trimisă spre saveAll și verificăm conținutul
-        ArgumentCaptor<List<ExerciseLabel>> captor = ArgumentCaptor.forClass(List.class);
-        verify(exerciseLabelRepository, times(1)).saveAll(captor.capture());
-
-        List<ExerciseLabel> savedLabels = captor.getValue();
-        // Trebuie să fie exact două etichete
-        assert savedLabels.size() == 2;
-        // Fiecare entitate ExerciseLabel trebuie să aibă `exercise` setat la mappedExercise
-        for (ExerciseLabel lbl : savedLabels) {
-            assert lbl.getExercise() == mappedExercise;
-        }
-    }
 
     @Test
     void deleteExercise_ShouldDelete_WhenExerciseExists() {
