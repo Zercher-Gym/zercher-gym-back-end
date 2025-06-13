@@ -3,10 +3,10 @@ package zercher.be.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-import zercher.be.dto.exerciselabel.ExerciseLabelCreateDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewAdminDTO;
-import zercher.be.dto.exerciselabel.ExerciseLabelViewDTO;
+import zercher.be.dto.exercise.ExerciseLabelCreateDTO;
+import zercher.be.dto.exercise.ExerciseLabelUpdateDTO;
+import zercher.be.dto.exercise.ExerciseLabelViewAdminDTO;
+import zercher.be.dto.exercise.ExerciseLabelViewDTO;
 import zercher.be.model.entity.ExerciseLabel;
 
 @Mapper(componentModel = "spring")

@@ -1,4 +1,4 @@
-package zercher.be.dto.workoutlabel;
+package zercher.be.dto.exercise;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkoutLabelUpdateDTO implements Serializable {
+public class ExerciseLabelUpdateDTO implements Serializable {
     @NotBlank
     @Size(max = 100)
     private String title;

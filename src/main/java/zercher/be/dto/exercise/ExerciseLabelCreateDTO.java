@@ -3,28 +3,27 @@ package zercher.be.dto.exercise;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import zercher.be.model.enums.Language;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExerciseCreateDTO implements Serializable {
+public class ExerciseLabelCreateDTO implements Serializable {
+    @NotNull
+    private Language language;
+
     @NotBlank
     @Size(max = 100)
-    private String identifier;
+    private String title;
 
-    @NotNull
-    private Set<ExerciseLabelCreateDTO> labels = new HashSet<>();
-
-    @NotNull
-    private Set<Long> units = new HashSet<>();
+    @NotBlank
+    @Size(max = 255)
+    private String description;
 }

@@ -1,4 +1,4 @@
-package zercher.be.dto.customworkout;
+package zercher.be.dto.exercise;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,9 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomWorkoutExerciseCreateUpdateDTO implements Serializable {
+    @NotNull
     private UUID exerciseId;
-
-    private UUID customExerciseId;
 
     @NotNull
     private Long unitId;

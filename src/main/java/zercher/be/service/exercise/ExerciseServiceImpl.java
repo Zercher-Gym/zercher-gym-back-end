@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zercher.be.dto.exercise.*;
-import zercher.be.dto.exerciselabel.ExerciseLabelUpdateDTO;
+import zercher.be.dto.exercise.ExerciseLabelUpdateDTO;
 import zercher.be.exception.global.ResourceExistsException;
 import zercher.be.exception.global.ResourceNotFoundException;
 import zercher.be.mapper.ExerciseLabelMapper;
@@ -147,6 +147,11 @@ public class ExerciseServiceImpl implements ExerciseService {
         var exerciseLabels = exerciseLabelRepository.findByExercise(exercise);
         for (var exerciseLabel : exerciseLabels) {
             exerciseResult.getLabels().put(exerciseLabel.getLanguage(), exerciseLabelMapper.entityToViewDTO(exerciseLabel));
+        }
+
+        exerciseResult.setUnits(new HashSet<>());
+        for (var exerciseUnit : exercise.getUnits()) {
+            exerciseResult.getUnits().add(unitMapper.entityToViewDTO(exerciseUnit));
         }
 
         return exerciseResult;

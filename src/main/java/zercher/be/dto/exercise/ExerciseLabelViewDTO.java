@@ -1,4 +1,4 @@
-package zercher.be.dto.exerciselabel;
+package zercher.be.dto.exercise;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
