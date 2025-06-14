@@ -19,6 +19,8 @@ public class ExerciseLogCreateDTO implements Serializable {
 
     private Long customWorkoutExerciseId;
 
+    private String details;
+
     @NotNull
     private List<String> detailsList = new ArrayList<>();
 }

@@ -51,6 +51,7 @@ public class LogServiceImpl implements LogService {
 
         var workoutLog = new WorkoutLog();
         workoutLog.setUser(user);
+        workoutLog.setDetails(createDTO.getDetails());
 
         if (createDTO.getWorkoutId() != null) {
             var workout = workoutRepository.findById(createDTO.getWorkoutId())
@@ -157,6 +158,7 @@ public class LogServiceImpl implements LogService {
         var workoutLogViewDTO = new WorkoutLogViewDTO();
         workoutLogViewDTO.setId(workoutLog.getId());
         workoutLogViewDTO.setCreatedAt(workoutLog.getCreatedAt());
+        workoutLogViewDTO.setDetails(workoutLog.getDetails());
 
         if (workoutLog.getCustomWorkout() != null) {
             workoutLogViewDTO.setTitle(workoutLog.getCustomWorkout().getTitle());
@@ -174,7 +176,7 @@ public class LogServiceImpl implements LogService {
             workoutLogViewDTO.setLabels(labels);
         }
 
-        workoutLogViewDTO.setExerciseLogs(new HashSet<>());
+        workoutLogViewDTO.setExerciseLogs(new ArrayList<>());
 
         for (var exerciseLog : exerciseLogs) {
             var exerciseLogViewDTO = new ExerciseLogViewDTO();

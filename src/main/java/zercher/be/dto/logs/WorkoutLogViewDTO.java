@@ -14,5 +14,7 @@ public class WorkoutLogViewDTO extends WorkoutLogViewListDTO {
 
     private UUID customWorkoutId;
 
-    private Set<ExerciseLogViewDTO> exerciseLogs = new HashSet<>();
+    private String details;
+
+    private List<ExerciseLogViewDTO> exerciseLogs = new ArrayList<>();
 }
