@@ -38,9 +38,9 @@ public class WorkoutSpecifications {
         return (root, _, cb) -> {
             Join<Workout, WorkoutLabel> labelJoin = root.join(Workout_.labels, JoinType.INNER);
             return cb.or(
-                    cb.like(cb.lower(labelJoin.get(WorkoutLabel_.title)), "%" + contains + "%"),
-                    cb.like(cb.lower(root.get(Workout_.identifier)), "%" + contains + "%"),
-                    cb.like(cb.lower(labelJoin.get(WorkoutLabel_.description)), "%" + contains + "%")
+                    cb.like(cb.lower(labelJoin.get(WorkoutLabel_.title)), "%" + contains.toLowerCase() + "%"),
+                    cb.like(cb.lower(root.get(Workout_.identifier)), "%" + contains.toLowerCase() + "%"),
+                    cb.like(cb.lower(labelJoin.get(WorkoutLabel_.description)), "%" + contains.toLowerCase() + "%")
             );
         };
     }
