@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>zercher.be.dto</OriginalElement>
+  <nodes>
+    <node x="-147.0" y="306.0">zercher.be.dto.custom</node>
+    <node x="-130.5" y="386.0">zercher.be.dto.workout</node>
+    <node x="-133.0" y="-14.0">zercher.be.dto.unit</node>
+    <node x="-133.5" y="66.0">zercher.be.dto.role</node>
+    <node x="-131.5" y="466.0">zercher.be.dto.exercise</node>
+    <node x="-136.0" y="226.0">zercher.be.dto.user</node>
+    <node x="-134.5" y="146.0">zercher.be.dto.logs</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="false" x="7.5" y="240.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

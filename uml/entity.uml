@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>zercher.be.model.entity</OriginalElement>
+  <nodes>
+    <node x="1194.0" y="1047.0">zercher.be.model.entity.ExerciseLabel</node>
+    <node x="972.5" y="1843.0">zercher.be.model.entity.CustomWorkoutExercise</node>
+    <node x="1011.5" y="51.0">zercher.be.model.entity.CustomWorkout</node>
+    <node x="797.5" y="1576.0">zercher.be.model.entity.CustomExercise.CustomExerciseBuilder</node>
+    <node x="774.5" y="1047.0">zercher.be.model.entity.CustomExercise</node>
+    <node x="-238.0" y="2887.0">zercher.be.model.entity.User</node>
+    <node x="530.5" y="567.0">zercher.be.model.entity.WorkoutExercise</node>
+    <node x="131.0" y="75.0">zercher.be.model.entity.Workout</node>
+    <node x="904.5" y="4084.0">zercher.be.model.entity.WorkoutLog.WorkoutLogBuilder</node>
+    <node x="577.0" y="1976.0">zercher.be.model.entity.WorkoutExercise.WorkoutExerciseBuilder</node>
+    <node x="1017.5" y="688.0">zercher.be.model.entity.CustomWorkout.CustomWorkoutBuilder</node>
+    <node x="360.0" y="1576.0">zercher.be.model.entity.WorkoutLabel.WorkoutLabelBuilder</node>
+    <node x="634.0" y="2451.0">zercher.be.model.entity.Exercise</node>
+    <node x="863.5" y="3043.0">zercher.be.model.entity.WorkoutLog</node>
+    <node x="1126.0" y="2524.0">zercher.be.model.entity.CustomWorkoutExercise.CustomWorkoutExerciseBuilder</node>
+    <node x="314.0" y="1047.0">zercher.be.model.entity.WorkoutLabel</node>
+    <node x="352.5" y="4072.0">zercher.be.model.entity.ExerciseLog.ExerciseLogBuilder</node>
+    <node x="218.5" y="2439.0">zercher.be.model.entity.Role</node>
+    <node x="-216.0" y="4036.0">zercher.be.model.entity.User.UserBuilder</node>
+    <node x="-241.5" y="-405.0">zercher.be.model.entity.Unit</node>
+    <node x="205.5" y="3788.0">zercher.be.model.entity.Role.RoleBuilder</node>
+    <node x="694.5" y="3788.0">zercher.be.model.entity.Exercise.ExerciseBuilder</node>
+    <node x="375.0" y="3019.0">zercher.be.model.entity.ExerciseLog</node>
+    <node x="1280.0" y="1576.0">zercher.be.model.entity.ExerciseLabel.ExerciseLabelBuilder</node>
+    <node x="134.5" y="700.0">zercher.be.model.entity.Workout.WorkoutBuilder</node>
+    <node x="-234.0" y="160.0">zercher.be.model.entity.Unit.UnitBuilder</node>
+    <node x="-137.0" y="1988.0">zercher.be.model.entity.VerificationToken.VerificationTokenBuilder</node>
+    <node x="-160.0" y="1071.0">zercher.be.model.entity.VerificationToken</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="zercher.be.model.entity.WorkoutLabel.WorkoutLabelBuilder" target="zercher.be.model.entity.WorkoutLabel" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.Workout.WorkoutBuilder" target="zercher.be.model.entity.Workout" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.ExerciseLabel.ExerciseLabelBuilder" target="zercher.be.model.entity.ExerciseLabel" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="1434.0" y="1552.0" />
+      <point x="1394.0" y="1552.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.ExerciseLog.ExerciseLogBuilder" target="zercher.be.model.entity.ExerciseLog" relationship="INNER_CLASS">
+      <point x="0.0" y="-140.0" />
+      <point x="0.0" y="273.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.CustomWorkout.CustomWorkoutBuilder" target="zercher.be.model.entity.CustomWorkout" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.Role.RoleBuilder" target="zercher.be.model.entity.Role" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="334.0" y="3752.0" />
+      <point x="354.0" y="3752.0" />
+      <point x="0.0" y="213.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.WorkoutLog.WorkoutLogBuilder" target="zercher.be.model.entity.WorkoutLog" relationship="INNER_CLASS">
+      <point x="0.0" y="-128.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.Unit.UnitBuilder" target="zercher.be.model.entity.Unit" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.VerificationToken.VerificationTokenBuilder" target="zercher.be.model.entity.VerificationToken" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.Exercise.ExerciseBuilder" target="zercher.be.model.entity.Exercise" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="854.0" y="3752.0" />
+      <point x="834.0" y="3752.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.CustomExercise.CustomExerciseBuilder" target="zercher.be.model.entity.CustomExercise" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.WorkoutExercise.WorkoutExerciseBuilder" target="zercher.be.model.entity.WorkoutExercise" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.CustomWorkoutExercise.CustomWorkoutExerciseBuilder" target="zercher.be.model.entity.CustomWorkoutExercise" relationship="INNER_CLASS">
+      <point x="0.0" y="-128.0" />
+      <point x="1354.0" y="2492.0" />
+      <point x="1194.0" y="2492.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="zercher.be.model.entity.User.UserBuilder" target="zercher.be.model.entity.User" relationship="INNER_CLASS">
+      <point x="0.0" y="-176.0" />
+      <point x="0.0" y="405.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.7658323775005518" showDependencies="false" x="135.42906435394536" y="2432.690647198966" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

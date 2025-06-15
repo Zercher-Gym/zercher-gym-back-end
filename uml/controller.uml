@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>zercher.be.controller</OriginalElement>
+  <nodes>
+    <node x="356.0" y="152.0">zercher.be.controller.LogController</node>
+    <node x="432.5" y="999.5">zercher.be.controller.RoleController</node>
+    <node x="-384.5" y="127.5">zercher.be.controller.UserController</node>
+    <node x="-398.5" y="-128.5">zercher.be.controller.CustomExerciseController</node>
+    <node x="-385.0" y="940.0">zercher.be.controller.WorkoutController</node>
+    <node x="62.5" y="436.0">zercher.be.controller.UnitController</node>
+    <node x="447.0" y="1220.0">zercher.be.controller.AuthenticationController</node>
+    <node x="-393.5" y="1220.0">zercher.be.controller.ExerciseController</node>
+    <node x="-398.0" y="627.5">zercher.be.controller.CustomWorkoutController</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="0.48282323547782635" showDependencies="false" x="327.5" y="661.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
