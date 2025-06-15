@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>zercher.be.dto.exercise</OriginalElement>
+  <nodes>
+    <node x="921.0" y="460.0">zercher.be.dto.exercise.ExerciseSearchDTO.ExerciseSearchDTOBuilder</node>
+    <node x="976.0" y="1543.0">zercher.be.dto.exercise.ExerciseLabelCreateDTO</node>
+    <node x="827.0" y="3848.0">zercher.be.dto.exercise.CustomWorkoutExerciseCreateUpdateDTO.CustomWorkoutExerciseCreateUpdateDTOBuilder</node>
+    <node x="669.5" y="1079.0">zercher.be.dto.exercise.ExerciseViewDTO</node>
+    <node x="834.0" y="3303.0">zercher.be.dto.exercise.CustomWorkoutExerciseCreateUpdateDTO</node>
+    <node x="615.0" y="4140.0">zercher.be.dto.exercise.ExerciseLabelUpdateDTO.ExerciseLabelUpdateDTOBuilder</node>
+    <node x="-303.0" y="3207.0">zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO</node>
+    <node x="412.5" y="1628.0">zercher.be.dto.exercise.ExerciseCreateDTO.ExerciseCreateDTOBuilder</node>
+    <node x="-304.0" y="4080.0">zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO.CustomWorkoutExerciseViewDTOBuilder</node>
+    <node x="48.0" y="-273.0">zercher.be.dto.exercise.ExerciseUpdateDTO</node>
+    <node x="408.0" y="2416.0">zercher.be.dto.exercise.ExerciseSearchAdminDTO.ExerciseSearchAdminDTOBuilder</node>
+    <node x="34.5" y="460.0">zercher.be.dto.exercise.ExerciseUpdateDTO.ExerciseUpdateDTOBuilder</node>
+    <node x="972.0" y="2428.0">zercher.be.dto.exercise.ExerciseLabelCreateDTO.ExerciseLabelCreateDTOBuilder</node>
+    <node x="-78.0" y="1519.0">zercher.be.dto.exercise.ExerciseLabelViewAdminDTO</node>
+    <node x="178.0" y="2036.0">zercher.be.dto.exercise.ExerciseLabelViewAdminDTO.ExerciseLabelViewAdminDTOBuilder</node>
+    <node x="288.5" y="3279.0">zercher.be.dto.exercise.ExerciseViewAdminDTO</node>
+    <node x="169.5" y="1079.0">zercher.be.dto.exercise.ExerciseSearchAdminDTO</node>
+    <node x="-144.5" y="67.0">zercher.be.dto.exercise.ExerciseLabelViewDTO</node>
+    <node x="943.0" y="67.0">zercher.be.dto.exercise.ExerciseSearchDTO</node>
+    <node x="-303.0" y="2271.0">zercher.be.dto.exercise.WorkoutExerciseViewDTO</node>
+    <node x="-177.0" y="740.0">zercher.be.dto.exercise.ExerciseLabelViewDTO.ExerciseLabelViewDTOBuilder</node>
+    <node x="-60.0" y="2892.0">zercher.be.dto.exercise.WorkoutExerciseViewDTO.WorkoutExerciseViewDTOBuilder</node>
+    <node x="408.5" y="643.0">zercher.be.dto.exercise.ExerciseCreateDTO</node>
+    <node x="264.5" y="3836.0">zercher.be.dto.exercise.ExerciseViewAdminDTO.ExerciseViewAdminDTOBuilder</node>
+    <node x="647.5" y="2867.0">zercher.be.dto.exercise.ExerciseLabelUpdateDTO</node>
+    <node x="626.0" y="2036.0">zercher.be.dto.exercise.ExerciseViewDTO.ExerciseViewDTOBuilder</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="zercher.be.dto.exercise.ExerciseSearchAdminDTO.ExerciseSearchAdminDTOBuilder" target="zercher.be.dto.exercise.ExerciseSearchAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="600.0" y="1980.0" />
+      <point x="380.0" y="1980.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseViewAdminDTO.ExerciseViewAdminDTOBuilder" target="zercher.be.dto.exercise.ExerciseViewAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseSearchDTO.ExerciseSearchDTOBuilder" target="zercher.be.dto.exercise.ExerciseSearchDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseLabelUpdateDTO.ExerciseLabelUpdateDTOBuilder" target="zercher.be.dto.exercise.ExerciseLabelUpdateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO.CustomWorkoutExerciseViewDTOBuilder" target="zercher.be.dto.exercise.CustomWorkoutExerciseViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-140.0" />
+      <point x="0.0" y="4060.0" />
+      <point x="-80.0" y="4060.0" />
+      <point x="0.0" y="273.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseLabelViewDTO.ExerciseLabelViewDTOBuilder" target="zercher.be.dto.exercise.ExerciseLabelViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.WorkoutExerciseViewDTO.WorkoutExerciseViewDTOBuilder" target="zercher.be.dto.exercise.WorkoutExerciseViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-128.0" />
+      <point x="220.0" y="2860.0" />
+      <point x="-80.0" y="2860.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseLabelViewAdminDTO.ExerciseLabelViewAdminDTOBuilder" target="zercher.be.dto.exercise.ExerciseLabelViewAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="380.0" y="2000.0" />
+      <point x="140.0" y="2000.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseUpdateDTO.ExerciseUpdateDTOBuilder" target="zercher.be.dto.exercise.ExerciseUpdateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseLabelCreateDTO.ExerciseLabelCreateDTOBuilder" target="zercher.be.dto.exercise.ExerciseLabelCreateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseCreateDTO.ExerciseCreateDTOBuilder" target="zercher.be.dto.exercise.ExerciseCreateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.ExerciseViewDTO.ExerciseViewDTOBuilder" target="zercher.be.dto.exercise.ExerciseViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-104.0" />
+      <point x="880.0" y="2000.0" />
+      <point x="900.0" y="2000.0" />
+      <point x="0.0" y="201.0" />
+    </edge>
+    <edge source="zercher.be.dto.exercise.CustomWorkoutExerciseCreateUpdateDTO.CustomWorkoutExerciseCreateUpdateDTOBuilder" target="zercher.be.dto.exercise.CustomWorkoutExerciseCreateUpdateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.16612937889533635" showDependencies="false" x="522.0" y="2043.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
