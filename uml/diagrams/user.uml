@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>zercher.be.dto.user</OriginalElement>
+  <nodes>
+    <node x="733.0" y="-249.0">zercher.be.dto.user.UserNewPasswordDTO</node>
+    <node x="743.5" y="1480.0">zercher.be.dto.user.UserListViewDTO.UserListViewDTOBuilder</node>
+    <node x="481.5" y="895.0">zercher.be.dto.user.UserViewDTO</node>
+    <node x="750.0" y="2324.0">zercher.be.dto.user.UserViewDTO.UserViewDTOBuilder</node>
+    <node x="394.5" y="147.0">zercher.be.dto.user.UserUpdateDTO</node>
+    <node x="593.5" y="1827.0">zercher.be.dto.user.UserSearchDTO</node>
+    <node x="13.0" y="123.0">zercher.be.dto.user.UserSignUpDTO</node>
+    <node x="126.5" y="1028.0">zercher.be.dto.user.UserSignUpDTO.UserSignUpDTOBuilder</node>
+    <node x="568.5" y="3120.0">zercher.be.dto.user.UserSearchDTO.UserSearchDTOBuilder</node>
+    <node x="190.0" y="580.0">zercher.be.dto.user.UserSignInDTO.UserSignInDTOBuilder</node>
+    <node x="307.5" y="2804.0">zercher.be.dto.user.UserSearchAdminDTO.UserSearchAdminDTOBuilder</node>
+    <node x="705.0" y="232.0">zercher.be.dto.user.UserNewPasswordDTO.UserNewPasswordDTOBuilder</node>
+    <node x="257.5" y="2215.0">zercher.be.dto.user.UserSearchAdminDTO</node>
+    <node x="-222.0" y="2167.0">zercher.be.dto.user.UserViewAdminDTO</node>
+    <node x="551.0" y="507.0">zercher.be.dto.user.UserListViewDTO</node>
+    <node x="-170.0" y="3060.0">zercher.be.dto.user.UserViewAdminDTO.UserViewAdminDTOBuilder</node>
+    <node x="-140.0" y="1383.0">zercher.be.dto.user.UserUpdateAdminDTO</node>
+    <node x="307.0" y="1480.0">zercher.be.dto.user.UserUpdateDTO.UserUpdateDTOBuilder</node>
+    <node x="62.5" y="1888.0">zercher.be.dto.user.UserUpdateAdminDTO.UserUpdateAdminDTOBuilder</node>
+    <node x="218.0" y="-273.0">zercher.be.dto.user.UserSignInDTO</node>
+    <node x="-153.0" y="592.0">zercher.be.dto.user.UserEmailDTO.UserEmailDTOBuilder</node>
+    <node x="-139.5" y="-249.0">zercher.be.dto.user.UserEmailDTO</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="zercher.be.dto.user.UserSearchDTO.UserSearchDTOBuilder" target="zercher.be.dto.user.UserSearchDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserUpdateDTO.UserUpdateDTOBuilder" target="zercher.be.dto.user.UserUpdateDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="459.0" y="880.0" />
+      <point x="519.0" y="880.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserEmailDTO.UserEmailDTOBuilder" target="zercher.be.dto.user.UserEmailDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-68.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserSignUpDTO.UserSignUpDTOBuilder" target="zercher.be.dto.user.UserSignUpDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="279.0" y="1000.0" />
+      <point x="159.0" y="1000.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserSignInDTO.UserSignInDTOBuilder" target="zercher.be.dto.user.UserSignInDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserViewAdminDTO.UserViewAdminDTOBuilder" target="zercher.be.dto.user.UserViewAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-140.0" />
+      <point x="0.0" y="273.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserViewDTO.UserViewDTOBuilder" target="zercher.be.dto.user.UserViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="899.0" y="1800.0" />
+      <point x="679.0" y="1800.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserNewPasswordDTO.UserNewPasswordDTOBuilder" target="zercher.be.dto.user.UserNewPasswordDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-68.0" />
+      <point x="0.0" y="129.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserSearchAdminDTO.UserSearchAdminDTOBuilder" target="zercher.be.dto.user.UserSearchAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-116.0" />
+      <point x="0.0" y="225.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserListViewDTO.UserListViewDTOBuilder" target="zercher.be.dto.user.UserListViewDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-80.0" />
+      <point x="899.0" y="880.0" />
+      <point x="679.0" y="880.0" />
+      <point x="0.0" y="153.0" />
+    </edge>
+    <edge source="zercher.be.dto.user.UserUpdateAdminDTO.UserUpdateAdminDTOBuilder" target="zercher.be.dto.user.UserUpdateAdminDTO" relationship="INNER_CLASS">
+      <point x="0.0" y="-92.0" />
+      <point x="239.0" y="1860.0" />
+      <point x="59.0" y="1860.0" />
+      <point x="0.0" y="177.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.2127718139278833" showDependencies="false" x="416.5" y="1533.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
