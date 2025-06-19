@@ -52,5 +52,11 @@ Alternatively you may run the project from an IDE by simply running the `Zercher
 If any errors arise when you run the main class, then please check your database connection credentials.
 
 ## Documentation
+
 Upon application start, the application documentation can be found at `http://localhost:8080/swagger-ui/index.html`.
 Additionally, the API documentation can be found in JSON format at `http://localhost:8080/v3/api-docs`.
+
+## Demo
+
+An offline demo of the app can be found
+at [this](https://drive.google.com/file/d/1VAEP1LoUu5fTerE7FYmcqI7QrriwP-7q/view?usp=sharing) link.
